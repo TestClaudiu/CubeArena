@@ -87,7 +87,7 @@ public class StartPanel extends JPanel{
 			g.drawString("PLAYER 2 : move:W/S KEYS ,     select buff:D KEY ,    deselect buff:A KEY", 0, 680);
 			g.setFont(new Font(g.getFont().getFontName(), Font.BOLD, 20));
 		}
-		
+			
 		g.drawImage(frameP1, 225, 50+(selectedButtonP1-1)*InformationExpert.DISTANCE_BETWEEN_BUTTONS, null);
 		g.drawImage(frameP2, 225,  50+(selectedButtonP2-1)*InformationExpert.DISTANCE_BETWEEN_BUTTONS ,null);
 	}

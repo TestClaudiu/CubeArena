@@ -54,11 +54,7 @@ public class StartPanel extends JPanel{
 	}
 	public void paintComponent(Graphics g){
 		
-		
-//		g.setFont(new Font("Acknowledge TT (BRK)", Font.PLAIN, 22));
 		g.setFont(new Font("Emulator", Font.PLAIN, 13));
-
-//		g.setFont(font);
 		g.drawImage(initBG, 0, 0, null);
 		g.drawImage(buttonFrame, 200, 30, null);
 		
@@ -189,23 +185,23 @@ public class StartPanel extends JPanel{
 		int posY = 100;
 		Scanner lineProcessor = new Scanner(desc);
 		while(lineProcessor.hasNextLine()){
+			
 			String temp = lineProcessor.nextLine();
 			g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, 11));
-			System.out.print(g.getFont());
 			g.setColor(ColorDesc);
-			if(temp.startsWith("$")){
-				temp = temp.substring(1, temp.length());
-				g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, 13));
-//				g.getFont().deriveFont(23);
-				g.setColor(ColorName);
-				g.drawImage(buffFrame, posX-5, posY-20, null);
-			}else{
+			
+			if(temp.startsWith("$")){ // $ is used to identify the name and to place a buffFrame accordingly
 				
+				temp = temp.substring(1, temp.length()); // removing the dollar char
+				g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, 13));
+				g.setColor(ColorName);
+				
+				g.drawImage(buffFrame, posX-3, posY-20, null);
 			}
 			g.drawString(temp, posX, posY);
 			posY+= 20;
 		}
-		
+		lineProcessor.close();
 		
 	}
 }

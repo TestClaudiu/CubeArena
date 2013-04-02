@@ -29,6 +29,8 @@ public class InformationExpert {
 	public final static int MAP_GENERATE_TYPE = MAP_PREMADE; 
 	
 	public final static int STATE_GAME = 2 , STATE_BUFFS = 1;
+	public final static int FRAME_RATE = 60;
+	
 	
 	public final static int PROJECTILE_DEFAULT_SPEED = 5 ;
 	

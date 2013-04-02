@@ -79,7 +79,7 @@ public class Buff {
 			myImage1 = ImageIO.read(new File("res\\BUFF_BERZERKER.png"));
 			myImage2 = ImageIO.read(new File("res\\BUFF_BERZERKER_RING.png"));
 		}
-		name ="$"+ name;
+		name ="$"+ name;  // $ is used to identify the name and to place a buffFrame accordingly
 		description = name +"\n";
 		if(damage !=0){	description+=("DAMAGE "+getSign(damage)+"\n");	}
 		if(speed !=0){	description+=("SPEED "+getSign(speed)+"\n");	}

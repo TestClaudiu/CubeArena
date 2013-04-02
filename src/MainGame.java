@@ -153,7 +153,7 @@ public class MainGame extends JFrame {
 		
 		repainterTask taskMain = main.new repainterTask(); // repaints every 10 ms
 		Timer timerMain = new Timer();
-		timerMain.scheduleAtFixedRate(taskMain, 0, 20);
+		timerMain.scheduleAtFixedRate(taskMain, 0, 1000/InformationExpert.FRAME_RATE);
 		
 		updateStateTask taskA = main.new updateStateTask();
 		Timer timerA = new Timer();

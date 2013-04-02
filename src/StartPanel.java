@@ -17,16 +17,22 @@ import javax.swing.JPanel;
 
 
 public class StartPanel extends JPanel{
-	public int selectedButtonP1 , selectedButtonP2 ;
-	public Set<Integer> buffIndexesP1 = new HashSet<>(); public  Set<Buff> P1buffs = new HashSet<>();
-	public Set<Integer> buffIndexesP2 = new HashSet<>(); public Set<Buff> P2buffs = new HashSet<>();
+	public int selectedButtonP1 , selectedButtonP2 ; // the cursor for the currently selected buff
+	public Set<Integer> buffIndexesP1 = new HashSet<>(); //
+	public  Set<Buff> P1buffs = new HashSet<>();
+	public Set<Integer> buffIndexesP2 = new HashSet<>();
+	public Set<Buff> P2buffs = new HashSet<>();
 	String buffDescriptionsP1= "" , buffDescriptionsP2 ="";
 //	public String
 	
 	
 	
-	public BufferedImage frameP1 , selectedP1;
-	public BufferedImage frameP2 , selectedP2 , button ,buttonFrame,buffFrame , initBG;
+	public BufferedImage frameP1 , selectedP1, // the "cursor" and the "check box" for the first player
+	frameP2 , selectedP2 , // the "cursor" and the "check box" for the second player
+	button , // the button in which every buff name is displayed
+	buttonFrame, // the panel behind all the buttons
+	buffFrame , // the panel in which we find the description of buffs
+	initBG; // background
 	public boolean notEnoughBuffs = false;
 	
 	public StartPanel(){
@@ -119,20 +125,26 @@ public class StartPanel extends JPanel{
 			}break;	
 			
 			
+			// Select/ deselect buffs assignment
 			
+			
+			// First player
 		case InformationExpert.KEY_P1_GO_RIGHT:
 		case InformationExpert.KEY_P1_GO_LEFT:
 		{
-			if(buffIndexesP1.size()<3 && !buffIndexesP1.contains(this.selectedButtonP1)){
+			if(buffIndexesP1.size()<3 && !buffIndexesP1.contains(this.selectedButtonP1)){ // we don't have the buff added yet and we don't have 3 buffs already
 				
-				buffIndexesP1.add(this.selectedButtonP1);
+				buffIndexesP1.add(this.selectedButtonP1); 
 				
-			}else if(buffIndexesP1.contains(this.selectedButtonP1)){
+			}else if(buffIndexesP1.contains(this.selectedButtonP1)){ // we have it in our buff list
+				
 				buffIndexesP1.remove(this.selectedButtonP1);
 			}
+				// we reset the buff descriptions and the buff list
 				buffDescriptionsP1="";
 				P1buffs.clear();
 				for(int x : buffIndexesP1){ 
+					// we remake the buff description and the buff list
 					P1buffs.add(new Buff(x));
 					buffDescriptionsP1+= new Buff(x).description+"\n\n";
 					
@@ -140,23 +152,27 @@ public class StartPanel extends JPanel{
 		} break;
 		
 		
-			// PLAYER 2
+			// second player
 		case InformationExpert.KEY_P2_GO_LEFT:
 		case InformationExpert.KEY_P2_GO_RIGHT:
 		{
 			
-			if(buffIndexesP2.size()<3 && !buffIndexesP2.contains(this.selectedButtonP2)){
+			if(buffIndexesP2.size()<3 && !buffIndexesP2.contains(this.selectedButtonP2)){// we don't have the buff added yet and we don't have 3 buffs already
 				
 				buffIndexesP2.add(this.selectedButtonP2);
-			}else if(buffIndexesP2.contains(this.selectedButtonP2)){
+				
+			}else if(buffIndexesP2.contains(this.selectedButtonP2)){ // we have it in our buff list
+				
 				buffIndexesP2.remove(this.selectedButtonP2);
+				
 			}
+			// we reset the buff descriptions and the buff list
 				buffDescriptionsP2="";
 				P2buffs.clear();
 				for(int x : buffIndexesP2){ 
+					// we remake the buff description and the buff list
 					P2buffs.add(new Buff(x)); 
-					buffDescriptionsP2+= new Buff(x).description+"\n\n";
-					
+					buffDescriptionsP2+= new Buff(x).description+"\n\n";	
 				}
 		} break;
 
@@ -165,41 +181,32 @@ public class StartPanel extends JPanel{
 		
 	}
 	public void updateEntityBuffs(Entity e){
-		ArrayList<Buff> temp1 = new ArrayList<>();
-		for(int x : buffIndexesP1){
-			temp1.add(new Buff(x));
-			System.out.print(temp1);	
-		}
 		if(e.getId()==1){	e.Buffs.addAll(P1buffs); e.buffs.addAll(buffIndexesP1);		}
-		
-		
-		
-		ArrayList<Buff> temp2 = new ArrayList<>();
-		for(int x: buffIndexesP2){
-			temp2.add(new Buff(x));
-			System.out.print(temp2);
-		}
-		if(e.getId()==2){	e.Buffs.addAll(temp2); e.buffs.addAll(buffIndexesP2);		}
+		if(e.getId()==2){	e.Buffs.addAll(P2buffs); e.buffs.addAll(buffIndexesP2);		}
 	}
 	public void generateBuffDescriptions(Graphics g , Color ColorName , Color ColorDesc , int posX , String desc){
 		int posY = 100;
 		Scanner lineProcessor = new Scanner(desc);
-		while(lineProcessor.hasNextLine()){
+	
+		while(lineProcessor.hasNextLine()){ // there are still lines to be processed from the buff descriptions
 			
-			String temp = lineProcessor.nextLine();
+			String temp = lineProcessor.nextLine(); // we process the description line by line
+
+			// set the font and color for the default buff description line
 			g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, 11));
 			g.setColor(ColorDesc);
 			
-			if(temp.startsWith("$")){ // $ is used to identify the name and to place a buffFrame accordingly
-				
+			if(temp.startsWith("$")){ // the temp String is a buff name
 				temp = temp.substring(1, temp.length()); // removing the dollar char
+				
+				// set the font and color for the buff name line
 				g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, 13));
 				g.setColor(ColorName);
 				
-				g.drawImage(buffFrame, posX-3, posY-20, null);
+				g.drawImage(buffFrame, posX-3, posY-20, null); // draw the buff frame to a possition relative to the name
 			}
 			g.drawString(temp, posX, posY);
-			posY+= 20;
+			posY+= 20;// we increment the position of a description line
 		}
 		lineProcessor.close();
 		

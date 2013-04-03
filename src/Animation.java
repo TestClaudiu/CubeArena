@@ -119,9 +119,8 @@ public void handleBotGenerator(){
 						x = rand.nextInt(12); y = rand.nextInt(12);
 						}while(		tiles[x][y]!='B'	);
 							Entity tempBot = new Entity(x*50, y*50, 3);
-//							botList.add(new Entity(x*50, y*50, 3));
-							if(tiles.length/2 > x ){  tempBot.moveTrajectory.x=1 ; } else tempBot.moveTrajectory.x=-1;
-							if(tiles.length/2 >y){  tempBot.moveTrajectory.y=1 ; } else tempBot.moveTrajectory.y=-1;
+							if(x==5 || x==6){ tempBot.moveTrajectory.x=0 ;}else if(x<5){	tempBot.moveTrajectory.x=1 ;	}else  { tempBot.moveTrajectory.x=-1; }
+							if(y==5 || y==6){ tempBot.moveTrajectory.y=0 ;}else if(y<5){	tempBot.moveTrajectory.y=1 ;	}else { tempBot.moveTrajectory.y=-1; }
 							botList.add(tempBot);
 					}
 				}
@@ -133,7 +132,7 @@ public void handleBotGenerator(){
 		Thread botTrajectoryRandomizer = new Thread(){
 			public void run(){
 				while(true){
-					try {		Thread.sleep(2000);		}		 catch (InterruptedException e) {	}
+					try {		Thread.sleep(500);		}		 catch (InterruptedException e) {	}
 					
 					if(firstPlayer.getHealth()>0 && secondPlayer.getHealth()>0 && isRunning){
 						

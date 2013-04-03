@@ -78,6 +78,7 @@ public class Entity {
 			this.default_Speed = InformationExpert.BOT_DEFAULT_SPEED ; this.speed = this.default_Speed ;
 			this.default_Damage = InformationExpert.BOT_DEFAULT_DAMAGE ; this.damage = this.default_Damage;
 			this.default_Health = InformationExpert.BOT_DEFAULT_HEALTH ; this.health = this.default_Health ;
+			this.projectileSpeedModifier = -2;
 		}
 		
 		this.name = "";
@@ -181,6 +182,11 @@ public class Entity {
 		if(id==3){
 			g.setColor(Color.BLACK);
 			g.fillRect(x+12, y+12, 20, 20);
+			g.fillRect(x+9, y+34, 26, 7);
+			g.setColor(Color.RED);
+			g.fillRect(x+10, y+35, 24, 5);
+			g.setColor(Color.GREEN);
+			g.fillRect(x+10, y+35, this.health*3  , 5);
 		}
 	}
 	public void updateImage(Graphics g,BufferedImage i1,BufferedImage i2,BufferedImage i3){

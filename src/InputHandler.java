@@ -64,13 +64,23 @@ public class InputHandler {
 		myEntity.setX(	Math.max(Math.min(550, myEntity.getX()), 0	)   );
 		if (A.onTileType(myEntity, 'X') || A.onTileType(myEntity, 'x') ) {
 			myEntity.setX(myEntity.getInitialX());
+//			if(myEntity.getId()==3){
+//				myEntity.randomizeTrajectory();
+//			}
 		}
+	
+		
+		
 		
 		myEntity.setY(myEntity.getY() + myEntity.moveTrajectory.getY() * myEntity.getSpeed());
 		myEntity.setY(	Math.max(Math.min(550, myEntity.getY()), 0	)	);
 		if (A.onTileType(myEntity, 'X') || A.onTileType(myEntity, 'x') ) {
 			myEntity.setY(myEntity.getInitialY());
+//			if(myEntity.getId()==3){
+//				myEntity.randomizeTrajectory();
+//			}
 		}
+	
 	}
 	
 	public void generateProjectiles(){

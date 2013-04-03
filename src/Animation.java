@@ -21,7 +21,7 @@ public class Animation extends JPanel {
 
 
 	public InputHandler player1,player2;
-	public static BufferedImage  tile, cherry, wall,wallExtended,crown;
+	public static BufferedImage  tile, cherry, wall,wallExtended,crown,botSpawn;
 	public static BufferedImage  goldenCherry ,bg ,bullet1,bullet2,bullet3;
 
 	public char[][] tiles;
@@ -58,9 +58,9 @@ public class Animation extends JPanel {
 
 	public boolean onTileType(Entity e, char c) {
 		boolean test = false;
-		if (tiles[(e.getX()+5) / 50][(e.getY()+5) / 50 ] == c   // left-up
+		if (tiles[(e.getX()+5) / 50][(e.getY()+15) / 50 ] == c   // left-up
 				|| tiles[(e.getX() + 45 ) / 50][(e.getY() + 45) / 50] == c // right-down
-				|| tiles[(e.getX() + 45) / 50][(e.getY() +5) / 50] == c
+				|| tiles[(e.getX() + 45) / 50][(e.getY() +15) / 50] == c
 				|| tiles[((e.getX()+5) / 50)][(e.getY() + 45) / 50] == c) {
 			test = true;
 		}
@@ -226,7 +226,13 @@ public void handleBotGenerator(){
 			g.drawImage(crown, secondPlayer.getX(), secondPlayer.getY()-30, null);
 		}
 		
-	
+		for(int i=0; i < tiles.length;i++){
+			for(int j=0;j< tiles.length;j++){
+				if(tiles[i][j]=='B'){
+					g.drawImage(botSpawn, i*50-25, j*50-25, null);
+				}
+			}
+		}
 		
 		EventHandler.handleBulletEntitycollision(firstPlayer, secondPlayer);
 		EventHandler.handleBulletEntitycollision(secondPlayer, firstPlayer) ;
@@ -268,6 +274,7 @@ public void handleBotGenerator(){
 		bullet1 = ImageIO.read(new File("res\\ProjectileHero1.png"));
 		bullet2 = ImageIO.read(new File("res\\ProjectileHero2.png"));
 		bullet3 = ImageIO.read(new File("res\\ProjectileBOT.png"));
+		botSpawn = ImageIO.read(new File("res\\BOT_SPAWNER.png"));
 		} catch (IOException e) {}
 	}
 

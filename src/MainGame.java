@@ -232,9 +232,9 @@ public class MainGame extends JFrame {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {}
-					mySet.clear();
-					A.firstPlayer.reset();
-					A.secondPlayer.reset();
+//					mySet.clear();
+//					A.firstPlayer.reset();
+//					A.secondPlayer.reset();
 					
 					if (A.firstPlayer.getHealth() <= 0) {
 						JOptionPane.showMessageDialog(null, "Player 2 Won !");

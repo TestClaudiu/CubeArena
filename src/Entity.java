@@ -182,12 +182,12 @@ public class Entity {
 		if(id==3){
 			g.setColor(Color.BLACK);
 			g.fillRect(x+12, y+12, 20, 20);
-			g.fillRect(x+9, y+34, 26, 7);
+			g.fillRect(x+9, y+34, InformationExpert.BOT_HEALTHBAR_WIDTH+2, InformationExpert.BOT_HEALTHBAR_HEIGHT+2);
 			g.setColor(Color.RED);
-			g.fillRect(x+10, y+35, 24, 5);
+			g.fillRect(x+10, y+35, InformationExpert.BOT_HEALTHBAR_WIDTH, InformationExpert.BOT_HEALTHBAR_HEIGHT);
 			
 			g.setColor(Color.GREEN);
-			g.fillRect(x+10, y+35, this.health*3  , 5);
+			g.fillRect(x+10, y+35, (InformationExpert.BOT_HEALTHBAR_WIDTH/this.maxHealth) * this.health , InformationExpert.BOT_HEALTHBAR_HEIGHT);
 		}
 	}
 	public void updateImage(Graphics g,BufferedImage i1,BufferedImage i2,BufferedImage i3){

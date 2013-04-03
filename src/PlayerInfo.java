@@ -31,9 +31,7 @@ public class PlayerInfo extends JPanel {
 		setVisible(true);
 		bf = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
 		try {
-//			heart = ImageIO.read(new File("res\\healthContainer.png"));
-			heart = ImageIO.read(new File("res\\healthContainer2.png"));
-			bg = ImageIO.read(new File("res\\bgInfo.png"));
+
 			infoPlayer1 = ImageIO.read(new File("res\\infoP1.png"));
 			infoPlayer2 = ImageIO.read(new File("res\\InfoP2.png"));
 		} catch (IOException e) {}
@@ -64,41 +62,22 @@ public class PlayerInfo extends JPanel {
 		g.fillRect(0, 0, 600, 150);
 		
 		g.drawImage(infoPlayer1, 0,	0	,null);
+		System.out.println("Printed infoPlayer1 :D");
 		g.drawImage(infoPlayer2, 300, 0, null);
-		// fill hearts
+
 		
-		
-//		g.setColor(Color.RED);
-//		g.fillRect(475, heart.getHeight(getParent())-e2Health* ( heart.getHeight(getParent())/5 ), // location
-//				heart.getWidth(getParent()), e2Health*(heart.getHeight(getParent()) )/5 );	// size
-//		
-//		g.fillRect(175, heart.getHeight(getParent())-e1Health* ( heart.getHeight(getParent())/5 ), // location
-//				heart.getWidth(getParent()), e1Health*(heart.getHeight(getParent()) )/5 );
-//		g.fillRect(175, 100-e1Health*20, 100, e1Health*20);
-		
-	
-		// WRITE NAMES
 		g.setColor(Color.WHITE);
 		if(e1Name!=null || e2Name!=null){
 			g.drawString(e1Name, 110, 25);
 			g.drawString(e2Name, 410, 25);
 		}
 		
-//		if(e1.getHealth() ==  5*e1.maxHealth/5){	g.setColor(Color.GREEN);			}
-//		if(e1.getHealth() ==  4*e1.maxHealth/5){	g.setColor(Color.YELLOW);			}
-//		if(e1.getHealth() ==  3*e1.maxHealth/5){	g.setColor(Color.ORANGE);			}
-//		if(e1.getHealth() ==  2*e1.maxHealth/5){	g.setColor(Color.RED);				}
-//		if(e1.getHealth() ==  1*e1.maxHealth/5){	g.setColor(new Color(135, 6, 0));	}
 		if(e1!=null && e2!=null){
-//		drawHealth(e1, g);
 		g.setColor(Color.WHITE);
 		g.drawString(e1.getHealth()+" / "+e1.maxHealth, 110, 50);
-//		drawHealth(e2, g);
 		g.drawString(e2.getHealth()+" / "+e2.maxHealth, 410, 50);
 		}
-		// DRAW HEARTS CONTAINERS
-//		g.drawImage(heart, 175, 0, null);
-//		g.drawImage(heart, 475, 0, null);
+
 		
 		
 		

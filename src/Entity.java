@@ -185,6 +185,7 @@ public class Entity {
 			g.fillRect(x+9, y+34, 26, 7);
 			g.setColor(Color.RED);
 			g.fillRect(x+10, y+35, 24, 5);
+			
 			g.setColor(Color.GREEN);
 			g.fillRect(x+10, y+35, this.health*3  , 5);
 		}

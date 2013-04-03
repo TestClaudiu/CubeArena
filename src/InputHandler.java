@@ -28,10 +28,6 @@ public class InputHandler {
 			}
 		}
 		
-//		if(myEntity.getId()==1){
-//			System.out.println(myEntity.name+" VITEZA :D "+myEntity.getSpeed()+"  RATA DE FOC :( "+
-//			myEntity.getFireRate()+" HIT ?"+myEntity.hit+" GOT HIT ? "+myEntity.gotHit);
-//		}
 		
 		myEntity.sysTime = new Date().getTime();
 		myEntity.setInitialX(myEntity.getX());

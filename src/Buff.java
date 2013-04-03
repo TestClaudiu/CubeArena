@@ -37,8 +37,7 @@ public class Buff {
 		
 		if(index == InformationExpert.BUFF_TANK){
 			name = "TANK";
-			health = InformationExpert.PLAYER_DEFAULT_HEALTH * 2 /3 ; // 28.03
-			speed = -1;
+			health = InformationExpert.PLAYER_DEFAULT_HEALTH * 1 /3 ; // 28.03
 			projectileSpeed = - 1;
 			myImage1 = ImageIO.read(new File("res\\BUFF_TANK.PNG"));
 		}

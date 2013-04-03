@@ -142,7 +142,11 @@ public class MainGame extends JFrame {
 	}
 	
 	public static void main(String[] args) {
+		
 		A.handleInput();
+		A.handleBotGenerator();
+		A.handleBotInput();
+		A.handleBotTrajectory();
 		String fName = JOptionPane.showInputDialog(null, "Enter First player's name !");
 		A.firstPlayer.name = fName;
 		String sName = JOptionPane.showInputDialog(null, "Enter Second player's name !");
@@ -192,10 +196,12 @@ public class MainGame extends JFrame {
 				if(state == 1){
 					initPanel.setVisible(true);
 					gamePanel.setVisible(false);
+					A.isRunning = false;
 				}
 				if(state == 2){
 					initPanel.setVisible(false);
 					gamePanel.setVisible(true);
+					A.isRunning= true;
 				}
 				prevState = state;
 				pack();
@@ -223,12 +229,12 @@ public class MainGame extends JFrame {
 		public void run(){
 			if(state==2){
 				if (A.firstPlayer.getHealth() <= 0 || A.secondPlayer.getHealth() <= 0) {
-				
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {}
 					mySet.clear();
 					A.firstPlayer.reset();
-					A.firstPlayer.Projectiles.clear();
 					A.secondPlayer.reset();
-					A.secondPlayer.Projectiles.clear();
 					
 					if (A.firstPlayer.getHealth() <= 0) {
 						JOptionPane.showMessageDialog(null, "Player 2 Won !");
@@ -240,6 +246,9 @@ public class MainGame extends JFrame {
 						A.firstPlayer.setRoundsWon(A.firstPlayer.getRoundsWon()+1);
 					}
 					
+					mySet.clear();
+					A.firstPlayer.reset();
+					A.secondPlayer.reset();
 					
 					try {
 						Thread.sleep(50);
@@ -249,6 +258,7 @@ public class MainGame extends JFrame {
 					int answer = JOptionPane.showConfirmDialog(null,
 							"Would you like to play again ?");
 					if (answer == 0) {					
+						A.botList.clear();
 						A.myMaps.next(); // go to next 
 						A.cherryIndex = '0';
 						mySet.clear();

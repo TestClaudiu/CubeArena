@@ -10,6 +10,7 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 public class Animation extends JPanel {
 
@@ -21,7 +22,7 @@ public class Animation extends JPanel {
 
 	public InputHandler player1,player2;
 	public static BufferedImage  tile, cherry, wall,wallExtended,crown;
-	public static BufferedImage  goldenCherry ,bg ,bullet1,bullet2;
+	public static BufferedImage  goldenCherry ,bg ,bullet1,bullet2,bullet3;
 
 	public char[][] tiles;
 	public static char[][] temporaryTiles;
@@ -32,10 +33,10 @@ public class Animation extends JPanel {
 	public Random rand ;
 	public static TileMap map;
 	public static EventHandler eventHandler;
-
+	ArrayList<Entity> 	botList = new ArrayList<>();
 	public Entity firstPlayer, secondPlayer;
 	public MapChooser myMaps;
-	
+	public boolean isRunning = false;
 	public Animation() {
 		
 		setSize(new Dimension(600, 600));
@@ -104,7 +105,71 @@ public class Animation extends JPanel {
 		Timer myTimer = new  Timer();
 		myTimer.schedule(input, 0, 10);
 	}
-	
+public void handleBotGenerator(){
+		Thread botGen = new Thread(){
+			public void run(){
+				while(true){
+					int respawn = (rand.nextInt(8)+7)*1000;
+					try {		Thread.sleep(respawn);		}		 catch (InterruptedException e) {	}
+					
+					if(firstPlayer.getHealth()>0 && secondPlayer.getHealth()>0 && isRunning){
+						
+						int x , y;
+						do{
+						x = rand.nextInt(12); y = rand.nextInt(12);
+						}while(		tiles[x][y]!='B'	);
+							Entity tempBot = new Entity(x*50, y*50, 3);
+//							botList.add(new Entity(x*50, y*50, 3));
+							if(tiles.length/2 > x ){  tempBot.moveTrajectory.x=1 ; } else tempBot.moveTrajectory.x=-1;
+							if(tiles.length/2 >y){  tempBot.moveTrajectory.y=1 ; } else tempBot.moveTrajectory.y=-1;
+							botList.add(tempBot);
+					}
+				}
+			}
+		};
+		botGen.start();
+	}
+	public void handleBotTrajectory(){
+		Thread botTrajectoryRandomizer = new Thread(){
+			public void run(){
+				while(true){
+					try {		Thread.sleep(2000);		}		 catch (InterruptedException e) {	}
+					
+					if(firstPlayer.getHealth()>0 && secondPlayer.getHealth()>0 && isRunning){
+						
+						for(int i=0 ; i < botList.size();i++){
+							botList.get(i).randomizeTrajectory();
+						}
+						
+						
+						
+					}
+				}
+			}
+		};botTrajectoryRandomizer.start();
+	}
+	public void handleBotInput(){
+		final Animation myTempAnimation = this;
+//		ArrayList<InputHandler> myInputs = new ArrayList<>();
+		Thread botInputUpdater = new Thread(){
+			public void run(){
+				while(true){
+					try {		Thread.sleep(10);		}		 catch (InterruptedException e) {	}
+					
+					if(firstPlayer.getHealth()>0 && secondPlayer.getHealth()>0 && isRunning){
+						ArrayList<InputHandler> myInputs = new ArrayList<>();
+						for(int i=0;i<botList.size();i++){
+							myInputs.add(new InputHandler(botList.get(i), myTempAnimation));
+						}
+						for(int i=0;i<myInputs.size();i++){
+							myInputs.get(i).doRun();
+						}
+					}
+				}
+			}
+		};botInputUpdater.start();
+		
+	}
 	public void update(Graphics g) { // to override the update method
 		paint(g);	
 	}
@@ -144,7 +209,15 @@ public class Animation extends JPanel {
 		for(int i=0;i<secondPlayer.Projectiles.size();i++){
 			g.drawImage(bullet2, secondPlayer.Projectiles.get(i).getX(),secondPlayer.Projectiles.get(i).getY(), null);
 		}
-		
+		for(int i=0;i<botList.size();i++){
+			for(int j=0;j<botList.get(i).Projectiles.size();j++){
+				g.drawImage(bullet3	, 		botList.get(i).Projectiles.get(j).getX()	,		botList.get(i).Projectiles.get(j).getY(), 	null);
+
+			}
+		}
+		for(int i=0;i<botList.size();i++){
+			botList.get(i).drawEntity(bf.getGraphics());
+		}
 		firstPlayer.drawEntity(bf.getGraphics());
 		secondPlayer.drawEntity(bf.getGraphics());
 		
@@ -158,7 +231,16 @@ public class Animation extends JPanel {
 		
 		EventHandler.handleBulletEntitycollision(firstPlayer, secondPlayer);
 		EventHandler.handleBulletEntitycollision(secondPlayer, firstPlayer) ;
-
+		for(int i=0;i< botList.size();i++){
+			
+			EventHandler.handleBulletEntitycollision(botList.get(i), secondPlayer);
+			EventHandler.handleBulletEntitycollision(botList.get(i), firstPlayer) ;
+			EventHandler.handleBulletEntitycollision(firstPlayer, botList.get(i));
+			EventHandler.handleBulletEntitycollision(secondPlayer, botList.get(i)) ;
+			if(botList.get(i).getHealth()==0){
+				botList.remove(i);
+			}
+		}
 		for(int i=0; i< tiles.length;i++){
 			for(int j=0;j<tiles.length;j++){
 				if(tiles[i][j]=='x'){
@@ -186,7 +268,7 @@ public class Animation extends JPanel {
 		crown = ImageIO.read(new File("res\\crown.png"));
 		bullet1 = ImageIO.read(new File("res\\ProjectileHero1.png"));
 		bullet2 = ImageIO.read(new File("res\\ProjectileHero2.png"));
-		
+		bullet3 = ImageIO.read(new File("res\\ProjectileBOT.png"));
 		} catch (IOException e) {}
 	}
 

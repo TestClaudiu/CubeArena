@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
@@ -61,19 +62,33 @@ public class Entity {
 			
 		} catch (IOException e) {}
 		this.x = x ; this.y = y;
-		
-		this.default_FireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE; this.fireRate = this.default_FireRate;
-		this.default_Speed = InformationExpert.PLAYER_DEFAULT_SPEED ; this.speed = this.default_Speed ;
-		this.default_Damage = InformationExpert.PLAYER_DEFAULT_DAMAGE ; this.damage = this.default_Damage;
-		this.default_Health = InformationExpert.PLAYER_DEFAULT_HEALTH ; this.health = this.default_Health ;
+		this.id=id;
+
+		if(id==1 || id ==2){ // if the entity is a player
+			
+			this.default_FireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE; this.fireRate = this.default_FireRate;
+			this.default_Speed = InformationExpert.PLAYER_DEFAULT_SPEED ; this.speed = this.default_Speed ;
+			this.default_Damage = InformationExpert.PLAYER_DEFAULT_DAMAGE ; this.damage = this.default_Damage;
+			this.default_Health = InformationExpert.PLAYER_DEFAULT_HEALTH ; this.health = this.default_Health ;
+			
+			
+		}
+		if(id ==3 ){
+			this.default_FireRate = InformationExpert.BOT_DEFAULT_FIRE_RATE; this.fireRate = this.default_FireRate;
+			this.default_Speed = InformationExpert.BOT_DEFAULT_SPEED ; this.speed = this.default_Speed ;
+			this.default_Damage = InformationExpert.BOT_DEFAULT_DAMAGE ; this.damage = this.default_Damage;
+			this.default_Health = InformationExpert.BOT_DEFAULT_HEALTH ; this.health = this.default_Health ;
+		}
 		
 		this.name = "";
-		this.id=id;
+		if(this.id == 1 || this.id == 2){
+			this.MyImages = new EntityImageLibrary(this.id);
+		}
 		
-		this.MyImages = new EntityImageLibrary(this.id);
 		this.roundsWon=0;
 		this.name="";
 		this.maxHealth = this.default_Health;
+		
 		renewGotHit();
 		renewHit();
 		
@@ -120,7 +135,7 @@ public class Entity {
 		};
 	}
 	public void drawEntity(Graphics g){
-
+		if(id==1 || id == 2){
 		
 		boolean beforeEntity = true;
 //		handleBuffDisplay(g,  beforeEntity);
@@ -162,7 +177,11 @@ public class Entity {
 		for(int i=0;i<Buffs.size();i++){
 			Buffs.get(i).drawBuff(g, x, y, moveTrajectory.x, moveTrajectory.y, beforeEntity, gotHit,hit);
 		}
-		
+		}
+		if(id==3){
+			g.setColor(Color.BLACK);
+			g.fillRect(x+12, y+12, 20, 20);
+		}
 	}
 	public void updateImage(Graphics g,BufferedImage i1,BufferedImage i2,BufferedImage i3){
 		if(clip==0){ 	img = i1;	}
@@ -186,12 +205,23 @@ public class Entity {
 		this.shootTrajectory.setY(0);
 		this.moveTrajectory.setX(0);
 		this.moveTrajectory.setY(0);
+		this.Projectiles.clear();
 		this.health = this.default_Health;
 		this.damage = this.default_Damage;
 		this.speed = this.default_Speed;
 		this.fireRate = this.default_FireRate;
 		applyBuffs();		
 	}
+	public void randomizeTrajectory(){
+		Random rand = new Random();
+		int trajectory;
+		trajectory = rand.nextInt(3)-1; this.moveTrajectory.x = trajectory; System.out.print(this.moveTrajectory.x+" ");
+		trajectory = rand.nextInt(3)-1; this.moveTrajectory.y = trajectory; System.out.print(this.moveTrajectory.y+" ");
+		trajectory = rand.nextInt(3)-1; this.shootTrajectory.x = trajectory; System.out.print(this.shootTrajectory.x+" ");
+		trajectory = rand.nextInt(3)-1; this.shootTrajectory.y = trajectory; System.out.println(this.shootTrajectory.y+" ");
+		
+	}
+	
 	public void updateTrajectory(Trajectory t ,char x,char y){
 		if(x != '0'  ){
 			if(x==('+')){
@@ -216,7 +246,7 @@ public class Entity {
 		this.clip = 0;
 		
 	}
-	
+	 	
 	public int getId() {
 		return id;
 	}
@@ -273,7 +303,7 @@ public class Entity {
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
-
+	
 	
 }
 class Trajectory{

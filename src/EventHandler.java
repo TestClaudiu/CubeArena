@@ -94,10 +94,6 @@ public class EventHandler {
 					){
 					test = true;
 					myEntity.Projectiles.get(i).update();
-//					switch (myEntity.getId()){ // 26.03
-//						case 1: 	g.drawImage(bullet1, myEntity.Projectiles.get(i).getX(),myEntity.Projectiles.get(i).getY(), null); break;
-//						case 2: 	g.drawImage(bullet2, myEntity.Projectiles.get(i).getX(),myEntity.Projectiles.get(i).getY(), null); break;
-//					}
 				
 					
 				}
@@ -108,24 +104,6 @@ public class EventHandler {
 			}
 		}
 	}
-//	public static void handleFontEvent(Graphics g, Entity myPlayer,Font f){
-//		g.setFont(f);
-//		switch(myPlayer.getHealth()){
-//		
-//		case 5 : ; break;
-//		case 4 : g.setColor(new Color(145, 255, 0)); break;
-//		case 3 : g.setColor(new Color(255, 255, 0)); break;
-//		case 2 : g.setColor(new Color(255, 166, 0)); break;
-//		case 1 : g.setColor(new Color(255, 0, 0)); break;
-//		default : g.setColor(new Color(0, 255, 38)); break ;
-//		}
-//
-//		g.setFont(f);
-//		if(myPlayer.getY()-10>0){
-//			g.drawString(myPlayer.name+"  : "+myPlayer.getHealth()+" hp", myPlayer.getX()-10, myPlayer.getY()-10);
-//		}
-//		
-//	}
 	public static void handleBulletEntitycollision(Entity shooter, Entity shooted){
 		
 		for (int i = 0; i < shooter.Projectiles.size(); i++) {
@@ -134,7 +112,9 @@ public class EventHandler {
 				shooter.Projectiles.remove(i);
 				if(shooter.gotHit== true){ // if the person who shot got hit less than 1 second ago
 					if(shooter.buffs.contains(InformationExpert.BUFF_AVENGER)){
-						shooter.setHealth(Math.min(shooter.getHealth()+shooter.getDamage()-1, shooter.maxHealth));
+						if( shooter.getDamage()>0) {
+							shooter.setHealth(Math.min(shooter.getHealth()+shooter.getDamage()-1, shooter.maxHealth));
+						}
 					}	
 				}
 
@@ -157,16 +137,7 @@ public class EventHandler {
 						shooted.setHealth(shooted.getHealth() - shooter.getDamage());
 					}
 						shooted.gotHit = false;
-				}
-//				
-//				if(shooted.gotHit == false  && !shooted.gotHitTimer.isAlive()){ // didn't get hit last second
-//					shooted.renewGotHit();
-//					try {	Thread.sleep(10);} catch (InterruptedException e) {}
-//					shooted.gotHitTimer.start();
-//
-//				}
-				
-				
+				}		
 				
 				if (shooted.getHealth() < 0) {
 					shooted.setHealth(0);

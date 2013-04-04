@@ -40,18 +40,24 @@ public class MainGame extends JFrame {
 		try {
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res\\Others\\acknowtt.ttf")));
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res\\Others\\Emulator.ttf")));
-
 		} catch (FontFormatException | IOException e1) {}
 		
 		
-		new JFrame("Testlolumad");
+		
+		// Main Frame settings
+		new JFrame("My game frame");
 		setLayout(new FlowLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setName(" Cube Arena Alpha v.16");
+		setName(" Cube Arena Alpha v.30");
 		
+		// The panel in which the actual game is played
 		gamePanel = new JPanel(new BorderLayout());
 		gamePanel.setPreferredSize(new Dimension(600,700));	
+		
+		// the Animation-class panel in which the players move and the whole game is visually 
 		gamePanel.add(A, BorderLayout.CENTER);
+		
+		// the PlayerInfo-class panel in which we display the players' health and name and other information
 		gamePanel.add(Info,BorderLayout.SOUTH );
 		
 		state = 1; prevState = 0 ;

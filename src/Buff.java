@@ -78,6 +78,12 @@ public class Buff {
 			myImage1 = ImageIO.read(new File("res\\BUFF_BERZERKER.png"));
 			myImage2 = ImageIO.read(new File("res\\BUFF_BERZERKER_RING.png"));
 		}
+		if(index == InformationExpert.BUFF_BOT_KILLER){
+			name = "BOT KILLER";
+			fireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE / 4;
+			special = "+STATS WHEN IT\nKILLS BOTS";
+			
+		}
 		name ="$"+ name;  // $ is used to identify the name and to place a buffFrame accordingly
 		description = name +"\n";
 		if(damage !=0){	description+=("DAMAGE "+getSign(damage)+"\n");	}

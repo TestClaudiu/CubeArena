@@ -10,7 +10,6 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 public class Animation extends JPanel {
 
@@ -22,7 +21,7 @@ public class Animation extends JPanel {
 
 	public InputHandler player1,player2;
 	public static BufferedImage  tile, cherry, wall,wallExtended,crown,botSpawn;
-	public static BufferedImage  goldenCherry ,bg ,bullet1,bullet2,bullet3;
+	public static BufferedImage  goldenCherry ,bg ;
 
 	public char[][] tiles;
 	public static char[][] temporaryTiles;
@@ -105,7 +104,7 @@ public class Animation extends JPanel {
 		Timer myTimer = new  Timer();
 		myTimer.schedule(input, 0, 10);
 	}
-public void handleBotGenerator(){
+	public void handleBotGenerator(){
 		Thread botGen = new Thread(){
 			public void run(){
 				while(true){
@@ -177,7 +176,7 @@ public void handleBotGenerator(){
 	public void drawPictures(Graphics g) {
 		
 		g.drawImage(bg, 0, 0, null);
-		
+		// drawing the walls on the tiles
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles.length; j++) {
 				if(tiles[i][j]=='x'){
@@ -190,7 +189,8 @@ public void handleBotGenerator(){
 					
 		}		
 		
-		
+		// Drawing the cherries
+		//TO DO 
 		for(int i=0; i< tiles.length;i++){
 			for(int j=0;j<tiles.length;j++){
 			EventHandler.handleCherryEvent(g, "firstCherry", i, j, cherryIndex,
@@ -203,24 +203,26 @@ public void handleBotGenerator(){
 					tiles, temporaryTiles);
 		}
 	}
-		for(int i=0;i<firstPlayer.Projectiles.size();i++){
-			g.drawImage(bullet1, firstPlayer.Projectiles.get(i).getX(),firstPlayer.Projectiles.get(i).getY(), null);
-		}
-		for(int i=0;i<secondPlayer.Projectiles.size();i++){
-			g.drawImage(bullet2, secondPlayer.Projectiles.get(i).getX(),secondPlayer.Projectiles.get(i).getY(), null);
-		}
+		
+		// Drawing the entities' projectiles via their drawProjectile method
+		firstPlayer.drawProjectiles(g);
+		secondPlayer.drawProjectiles(g);
 		for(int i=0;i<botList.size();i++){
-			for(int j=0;j<botList.get(i).Projectiles.size();j++){
-				g.drawImage(bullet3	, 		botList.get(i).Projectiles.get(j).getX()	,		botList.get(i).Projectiles.get(j).getY(), 	null);
-
-			}
+			botList.get(i).drawProjectiles(g);
 		}
+		
+		
+		// Drawing the entities via their drawEntity method
 		for(int i=0;i<botList.size();i++){
 			botList.get(i).drawEntity(bf.getGraphics());
 		}
 		firstPlayer.drawEntity(bf.getGraphics());
 		secondPlayer.drawEntity(bf.getGraphics());
 		
+		
+		
+		// we are drawing the crown depending on the players with the most won rounds 
+		// might remove it ( will remove it later)
 		if(firstPlayer.getRoundsWon()>secondPlayer.getRoundsWon()){
 			g.drawImage(crown, firstPlayer.getX(), firstPlayer.getY()-30, null);
 		}else if(secondPlayer.getRoundsWon()>firstPlayer.getRoundsWon()){
@@ -272,9 +274,6 @@ public void handleBotGenerator(){
 		wall = ImageIO.read(new File("res\\Wall.png"));
 		wallExtended = ImageIO.read(new File("res\\WallExtended.png"));
 		crown = ImageIO.read(new File("res\\crown.png"));
-		bullet1 = ImageIO.read(new File("res\\ProjectileHero1.png"));
-		bullet2 = ImageIO.read(new File("res\\ProjectileHero2.png"));
-		bullet3 = ImageIO.read(new File("res\\ProjectileBOT.png"));
 		botSpawn = ImageIO.read(new File("res\\BOT_SPAWNER.png"));
 		} catch (IOException e) {}
 	}

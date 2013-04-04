@@ -18,8 +18,8 @@ public class Entity {
 	public Set<Integer> buffs = new HashSet<Integer>();
 	public ArrayList<Projectile> Projectiles = new ArrayList<Projectile>();
 	
-		BufferedImage img;
-		BufferedImage guardianAngel , shield ,sight , cloud , battery , wheel , forceField , hornsLeft,hornsRight ,hornsCenter , horns ;
+		BufferedImage img ,projectileImg ;
+//		BufferedImage guardianAngel , shield ,sight , cloud , battery , wheel , forceField , hornsLeft,hornsRight ,hornsCenter , horns ;
 
 	long sysTime = new Date().getTime() , tempTime = sysTime; // USED  in the inputHandler
 	Trajectory moveTrajectory = new Trajectory(0, 0);
@@ -27,9 +27,8 @@ public class Entity {
 	EntityImageLibrary MyImages ;
 	ArrayList<Buff> Buffs = new ArrayList<>();
 	int initialX,initialY;
-	int maxHealth;
+	int maxHealth; int botkillCount = 0;
 	String name;
-
 	
 	private int roundsWon ;
 	
@@ -41,26 +40,25 @@ public class Entity {
 	private int y;
 	public int projectileSpeedModifier = 0;
 	public Thread gotHitTimer , hitTimer;
-	
 	public boolean gotHit = false , hit = false;
 	
 	public Entity(int x, int y, int id){
 		
-		try {
-			guardianAngel = ImageIO.read(new File("res\\BUFF_GUARDIAN_ANGEL.png"));
-			shield = ImageIO.read(new File("res\\BUFF_TANK.PNG"));
-			sight = ImageIO.read(new File("res\\BUFF_SHARP_SHOOTER.png"));
-			cloud = ImageIO.read(new File("res\\BUFF_AVENGER.png"));
-			battery = ImageIO.read(new File("res\\BUFF_REPEATER.png"));
-			wheel = ImageIO.read(new File("res\\BUFF_SPEEDSTER.png"));
-			forceField = ImageIO.read(new File("res\\BUFF_GUARDIAN_ANGEL_SHIELD.png"));
-			hornsLeft = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_LEFT.png"));
-			hornsRight = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_RIGHT.png"));
-			hornsCenter = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_FRONT.png"));
-			horns = hornsLeft ; 
-			
-			
-		} catch (IOException e) {}
+//		try {
+//			guardianAngel = ImageIO.read(new File("res\\BUFF_GUARDIAN_ANGEL.png"));
+//			shield = ImageIO.read(new File("res\\BUFF_TANK.PNG"));
+//			sight = ImageIO.read(new File("res\\BUFF_SHARP_SHOOTER.png"));
+//			cloud = ImageIO.read(new File("res\\BUFF_AVENGER.png"));
+//			battery = ImageIO.read(new File("res\\BUFF_REPEATER.png"));
+//			wheel = ImageIO.read(new File("res\\BUFF_SPEEDSTER.png"));
+//			forceField = ImageIO.read(new File("res\\BUFF_GUARDIAN_ANGEL_SHIELD.png"));
+//			hornsLeft = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_LEFT.png"));
+//			hornsRight = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_RIGHT.png"));
+//			hornsCenter = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_FRONT.png"));
+//			horns = hornsLeft ; 
+//			
+//			
+//		} catch (IOException e) {}
 		this.x = x ; this.y = y;
 		this.id=id;
 
@@ -85,7 +83,15 @@ public class Entity {
 //		if(this.id == 1 || this.id == 2){
 			this.MyImages = new EntityImageLibrary(this.id);
 //		}
-		
+		try {
+			
+		switch(id){
+		case 1: projectileImg = ImageIO.read(new File("res\\ProjectileHero1.png")); break;
+		case 2: projectileImg = ImageIO.read(new File("res\\ProjectileHero2.png")); break;
+		case 3: projectileImg = ImageIO.read(new File("res\\ProjectileBOT.png")); break;
+			
+		}
+		} catch (IOException e) {}
 		this.roundsWon=0;
 		this.name="";
 		this.maxHealth = this.default_Health;
@@ -116,27 +122,7 @@ public class Entity {
 		this.maxHealth = this.health;
 	}
 	// This method is calle every time an enity is being hit and there has been more than one second since the last received hit
-	public void renewGotHit(){
-		gotHitTimer = new Thread(){
-			public void run(){
-				gotHit = true;
-				try {Thread.sleep(InformationExpert.THREAD_HIT_WAIT_TIME);
-				} catch (InterruptedException e) {}
-				gotHit = false;
-			}
-		};
-	}
-	// This method is called every time an entity hits someone
-	public void renewHit(){
-		hitTimer = new Thread(){
-			public void run(){
-				hit = true;
-				try {Thread.sleep(InformationExpert.THREAD_HIT_WAIT_TIME);
-				} catch (InterruptedException e) {}
-				hit = false;	
-			}
-		};
-	}
+
 	public void drawEntity(Graphics g){
 		
 		
@@ -211,7 +197,11 @@ public class Entity {
 			g.fillRect(x+8, y+40, (InformationExpert.BOT_HEALTHBAR_WIDTH/this.maxHealth) * this.health , InformationExpert.BOT_HEALTHBAR_HEIGHT);
 		}
 	}
-	
+	public void drawProjectiles(Graphics g){
+		for(int i=0;i<Projectiles.size();i++){
+			g.drawImage(projectileImg, Projectiles.get(i).getX(),Projectiles.get(i).getY(), null);
+		}
+	}
 	// we use this method to give the entity an animated feel, cycling between images every 7 frames
 	public void updateImage(Graphics g,BufferedImage i1,BufferedImage i2,BufferedImage i3){
 		
@@ -222,24 +212,37 @@ public class Entity {
 		clip++;
 	}
 
-	public int getFireRate() {
-		return fireRate;
+
+	public void renewGotHit(){
+		gotHitTimer = new Thread(){
+			public void run(){
+				gotHit = true;
+				try {Thread.sleep(InformationExpert.THREAD_HIT_WAIT_TIME);
+				} catch (InterruptedException e) {}
+				gotHit = false;
+			}
+		};
 	}
-
-
-	public void setFireRate(int fireRate) {
-		this.fireRate = fireRate;
+	// This method is called every time an entity hits someone
+	public void renewHit(){
+		hitTimer = new Thread(){
+			public void run(){
+				hit = true;
+				try {Thread.sleep(InformationExpert.THREAD_HIT_WAIT_TIME);
+				} catch (InterruptedException e) {}
+				hit = false;	
+			}
+		};
 	}
-
 	public void reset(){
 		this.shootTrajectory.setX(0);
 		this.shootTrajectory.setY(0);
 		this.moveTrajectory.setX(0);
 		this.moveTrajectory.setY(0);
-		this.Projectiles.clear();
-		this.damage = this.default_Damage;
+		this.Projectiles.clear();		this.damage = this.default_Damage;
 		this.speed = this.default_Speed;
 		this.fireRate = this.default_FireRate;
+		this.botkillCount = 0;
 	}
 	public void randomizeTrajectory(){
 		Random rand = new Random();
@@ -275,6 +278,16 @@ public class Entity {
 		this.clip = 0;
 		
 	}
+	
+	public int getFireRate() {
+		return fireRate;
+	}
+
+
+	public void setFireRate(int fireRate) {
+		this.fireRate = fireRate;
+	}
+	
 	 	
 	public int getId() {
 		return id;

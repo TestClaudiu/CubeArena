@@ -20,7 +20,13 @@ public class InputHandler {
 	public void doRun() {	
 		int tempSpeed = myEntity.getSpeed();
 		int tempFireRate = myEntity.getFireRate();
-		
+		if(myEntity.buffs.contains(InformationExpert.BUFF_BOT_KILLER)){
+			myEntity.setFireRate(myEntity.getFireRate()-Math.min(myEntity.botkillCount*33,200));
+			
+		}
+		if(myEntity.getId()==1){
+			System.out.println(myEntity.getFireRate());
+		}
 		if(myEntity.hit){
 			if(myEntity.buffs.contains(InformationExpert.BUFF_BERZERKER)){
 				myEntity.setSpeed(myEntity.getSpeed()+1);

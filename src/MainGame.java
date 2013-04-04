@@ -28,15 +28,14 @@ public class MainGame extends JFrame {
 	public	static Animation A = new Animation();
 	public static StartPanel initPanel = new StartPanel();
 	public static PlayerInfo Info = new PlayerInfo();
-	public static Thread timer;
-	private static long sysTime = new Date().getTime();				
-	private static long tempTime = sysTime;
 	static Set<Integer> mySet = new HashSet<Integer>() ;
 	
 	public static JPanel gamePanel ;
 	public static int state ,prevState ,keyCode;
 	
 	public MainGame() {
+		
+		// registering our new fonts so we can use them
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
 			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("res\\Others\\acknowtt.ttf")));

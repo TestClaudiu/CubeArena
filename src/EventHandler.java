@@ -141,6 +141,9 @@ public class EventHandler {
 				
 				if (shooted.getHealth() < 0) {
 					shooted.setHealth(0);
+					if(shooted.getId()==3){ // dead enemy is a bot
+						shooter.botkillCount++;
+					}
 				}
 			}
 		}

@@ -155,18 +155,23 @@ public class MainGame extends JFrame {
 		
 		MainGame main = new MainGame();
 		
-		repainterTask taskMain = main.new repainterTask(); // repaints every 10 ms
+		
+		// this timer is used to repaint the Animation panel 
+		repainterTask taskMain = main.new repainterTask(); 
 		Timer timerMain = new Timer();
 		timerMain.scheduleAtFixedRate(taskMain, 0, 1000/InformationExpert.FRAME_RATE);
 		
+		// this timer is used to change panels' visibility based on the current state
 		updateStateTask taskA = main.new updateStateTask();
 		Timer timerA = new Timer();
 		timerA.schedule(taskA, 0, 100);
 		
+		 // this timer is used to check if any of the players is dead . If so , it asks if we want to play again
 		testForWinTask taskB = main.new testForWinTask();
 		Timer timerB = new Timer();
 		timerB.schedule(taskB, 0, 100);
 		
+		 // this timer is used to update the health information during the game
 		updateInfoTask taskC = main.new updateInfoTask();
 		Timer timerC = new Timer();
 		timerC.schedule(taskC, 0, 100);
@@ -229,12 +234,12 @@ public class MainGame extends JFrame {
 		public void run(){
 			if(state==2){
 				if (A.firstPlayer.getHealth() <= 0 || A.secondPlayer.getHealth() <= 0) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {}
-//					mySet.clear();
-//					A.firstPlayer.reset();
-//					A.secondPlayer.reset();
+					
+					mySet.clear();
+					A.firstPlayer.reset();
+					A.secondPlayer.reset();
+					A.botList.clear();
+
 					
 					if (A.firstPlayer.getHealth() <= 0) {
 						JOptionPane.showMessageDialog(null, "Player 2 Won !");
@@ -246,9 +251,6 @@ public class MainGame extends JFrame {
 						A.firstPlayer.setRoundsWon(A.firstPlayer.getRoundsWon()+1);
 					}
 					
-					mySet.clear();
-					A.firstPlayer.reset();
-					A.secondPlayer.reset();
 					
 					try {
 						Thread.sleep(50);
@@ -258,15 +260,13 @@ public class MainGame extends JFrame {
 					int answer = JOptionPane.showConfirmDialog(null,
 							"Would you like to play again ?");
 					if (answer == 0) {					
-						A.botList.clear();
 						A.myMaps.next(); // go to next 
 						A.cherryIndex = '0';
+						
 						mySet.clear();
 						A.firstPlayer.setHealth(InformationExpert.PLAYER_DEFAULT_HEALTH);
 						A.secondPlayer.setHealth(InformationExpert.PLAYER_DEFAULT_HEALTH);
-						A.firstPlayer.reset();
 						A.firstPlayer.applyBuffs();
-						A.secondPlayer.reset();
 						A.secondPlayer.applyBuffs();
 					} else {
 						JOptionPane

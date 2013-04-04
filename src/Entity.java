@@ -82,9 +82,9 @@ public class Entity {
 		}
 		
 		this.name = "";
-		if(this.id == 1 || this.id == 2){
+//		if(this.id == 1 || this.id == 2){
 			this.MyImages = new EntityImageLibrary(this.id);
-		}
+//		}
 		
 		this.roundsWon=0;
 		this.name="";
@@ -115,6 +115,7 @@ public class Entity {
 		
 		this.maxHealth = this.health;
 	}
+	// This method is calle every time an enity is being hit and there has been more than one second since the last received hit
 	public void renewGotHit(){
 		gotHitTimer = new Thread(){
 			public void run(){
@@ -125,6 +126,7 @@ public class Entity {
 			}
 		};
 	}
+	// This method is called every time an entity hits someone
 	public void renewHit(){
 		hitTimer = new Thread(){
 			public void run(){
@@ -136,10 +138,15 @@ public class Entity {
 		};
 	}
 	public void drawEntity(Graphics g){
-		if(id==1 || id == 2){
 		
-		boolean beforeEntity = true;
-//		handleBuffDisplay(g,  beforeEntity);
+		
+		/* We use this variable because some buffs must be drawn before we draw the entity, 
+		 * the sprites being behind the entity . Such an example is the Guardian Angel buff,
+		 *  which draws wings 
+		 */
+		boolean beforeEntity = true; 
+		
+		// drawing every buff in the Buff list
 		for(int i=0;i<Buffs.size();i++){
 			Buffs.get(i).drawBuff(g, x, y, moveTrajectory.x, moveTrajectory.y, beforeEntity, gotHit,hit);
 		}
@@ -178,19 +185,36 @@ public class Entity {
 		for(int i=0;i<Buffs.size();i++){
 			Buffs.get(i).drawBuff(g, x, y, moveTrajectory.x, moveTrajectory.y, beforeEntity, gotHit,hit);
 		}
-		}
-		if(id==3){
-			g.setColor(Color.BLACK);
-			g.fillRect(x+12, y+12, 20, 20);
-			g.fillRect(x+9, y+34, InformationExpert.BOT_HEALTHBAR_WIDTH+2, InformationExpert.BOT_HEALTHBAR_HEIGHT+2);
-			g.setColor(Color.RED);
-			g.fillRect(x+10, y+35, InformationExpert.BOT_HEALTHBAR_WIDTH, InformationExpert.BOT_HEALTHBAR_HEIGHT);
+
+		if(id==3){ // We are drawing the health bar here for the bots
 			
+			// The black outline for the bar
+			g.setColor(Color.BLACK);
+			g.fillRect(x+7, y+39, InformationExpert.BOT_HEALTHBAR_WIDTH+2, 
+					InformationExpert.BOT_HEALTHBAR_HEIGHT+2);
+			
+			// The red health bar background
+			g.setColor(Color.RED);
+			// Those variables don't change , as we use the green color to display the percentage of the life left
+			g.fillRect(x+8, y+40, InformationExpert.BOT_HEALTHBAR_WIDTH,
+					InformationExpert.BOT_HEALTHBAR_HEIGHT);
+			
+			
+			// the green part of the background
 			g.setColor(Color.GREEN);
-			g.fillRect(x+10, y+35, (InformationExpert.BOT_HEALTHBAR_WIDTH/this.maxHealth) * this.health , InformationExpert.BOT_HEALTHBAR_HEIGHT);
+			
+			/* The green rectangle's width covers the whole health bar at full health ,
+			 * the entity having their max health at that point.
+			 * When the entity lost health, the green rectangle's health gets smaller 
+			 * creating the illusion that red color fills the health bar a symbol of health we miss/lost
+			 */
+			g.fillRect(x+8, y+40, (InformationExpert.BOT_HEALTHBAR_WIDTH/this.maxHealth) * this.health , InformationExpert.BOT_HEALTHBAR_HEIGHT);
 		}
 	}
+	
+	// we use this method to give the entity an animated feel, cycling between images every 7 frames
 	public void updateImage(Graphics g,BufferedImage i1,BufferedImage i2,BufferedImage i3){
+		
 		if(clip==0){ 	img = i1;	}
 		if(clip==7){ 	img = i2;	}
 		if(clip==14){	img = i3;	}
@@ -213,19 +237,17 @@ public class Entity {
 		this.moveTrajectory.setX(0);
 		this.moveTrajectory.setY(0);
 		this.Projectiles.clear();
-		this.health = this.default_Health;
 		this.damage = this.default_Damage;
 		this.speed = this.default_Speed;
 		this.fireRate = this.default_FireRate;
-		applyBuffs();		
 	}
 	public void randomizeTrajectory(){
 		Random rand = new Random();
 		int trajectory;
-		trajectory = rand.nextInt(3)-1; this.moveTrajectory.x = trajectory; System.out.print(this.moveTrajectory.x+" ");
-		trajectory = rand.nextInt(3)-1; this.moveTrajectory.y = trajectory; System.out.print(this.moveTrajectory.y+" ");
-		trajectory = rand.nextInt(3)-1; this.shootTrajectory.x = trajectory; System.out.print(this.shootTrajectory.x+" ");
-		trajectory = rand.nextInt(3)-1; this.shootTrajectory.y = trajectory; System.out.println(this.shootTrajectory.y+" ");
+		trajectory = rand.nextInt(3)-1; this.moveTrajectory.x = trajectory; this.shootTrajectory.x = trajectory;
+		trajectory = rand.nextInt(3)-1; this.moveTrajectory.y = trajectory; this.shootTrajectory.y = trajectory;
+//		trajectory = rand.nextInt(3)-1; this.shootTrajectory.x = trajectory;
+//		trajectory = rand.nextInt(3)-1; this.shootTrajectory.y = trajectory; 
 		
 	}
 	

@@ -110,6 +110,7 @@ public void handleBotGenerator(){
 			public void run(){
 				while(true){
 					int respawn = (rand.nextInt(8)+7)*1000;
+
 					try {		Thread.sleep(respawn);		}		 catch (InterruptedException e) {	}
 					
 					if(firstPlayer.getHealth()>0 && secondPlayer.getHealth()>0 && isRunning){
@@ -228,9 +229,9 @@ public void handleBotGenerator(){
 		
 		for(int i=0; i < tiles.length;i++){
 			for(int j=0;j< tiles.length;j++){
-				if(tiles[i][j]=='B'){
-					g.drawImage(botSpawn, i*50-25, j*50-25, null);
-				}
+//				if(tiles[i][j]=='B'){
+//					g.drawImage(botSpawn, i*50-25, j*50-25, null);
+//				}
 			}
 		}
 		

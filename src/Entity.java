@@ -15,18 +15,18 @@ import javax.imageio.ImageIO;
 
 public class Entity {
 	
-	public Set<Integer> buffs = new HashSet<Integer>();
-	public ArrayList<Projectile> Projectiles = new ArrayList<Projectile>();
+	public Set<Integer> buffs = new HashSet<Integer>(); // a set filled with the buff indexes
+	public ArrayList<Projectile> Projectiles = new ArrayList<Projectile>(); // we store the projectiles , trajectories and their pseed
 	
-		BufferedImage img ,projectileImg ;
-//		BufferedImage guardianAngel , shield ,sight , cloud , battery , wheel , forceField , hornsLeft,hornsRight ,hornsCenter , horns ;
-
-	long sysTime = new Date().getTime() , tempTime = sysTime; // USED  in the inputHandler
-	Trajectory moveTrajectory = new Trajectory(0, 0);
-	Trajectory shootTrajectory = new Trajectory(0, 0);
+	BufferedImage img ,projectileImg ;
 	EntityImageLibrary MyImages ;
-	ArrayList<Buff> Buffs = new ArrayList<>();
-	int initialX,initialY;
+	
+	long sysTime = new Date().getTime() , tempTime = sysTime; // USED  in the inputHandler
+	Trajectory moveTrajectory = new Trajectory(0, 0); // moving trajectory
+	Trajectory shootTrajectory = new Trajectory(0, 0); // shooting trajectory
+	
+	ArrayList<Buff> Buffs = new ArrayList<>(); // a list filled with our entity's buffs
+	int initialX,initialY; //
 	int maxHealth; int botkillCount = 0;
 	String name;
 	
@@ -36,29 +36,15 @@ public class Entity {
 	private int clip = 0;
 	public int default_Damage , default_Speed , default_Health, default_FireRate; 
 	private int damage,speed,health,fireRate;
-	private int x;
-	private int y;
 	public int projectileSpeedModifier = 0;
+	private int x;	private int y;
+	
+	
 	public Thread gotHitTimer , hitTimer;
 	public boolean gotHit = false , hit = false;
 	
 	public Entity(int x, int y, int id){
 		
-//		try {
-//			guardianAngel = ImageIO.read(new File("res\\BUFF_GUARDIAN_ANGEL.png"));
-//			shield = ImageIO.read(new File("res\\BUFF_TANK.PNG"));
-//			sight = ImageIO.read(new File("res\\BUFF_SHARP_SHOOTER.png"));
-//			cloud = ImageIO.read(new File("res\\BUFF_AVENGER.png"));
-//			battery = ImageIO.read(new File("res\\BUFF_REPEATER.png"));
-//			wheel = ImageIO.read(new File("res\\BUFF_SPEEDSTER.png"));
-//			forceField = ImageIO.read(new File("res\\BUFF_GUARDIAN_ANGEL_SHIELD.png"));
-//			hornsLeft = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_LEFT.png"));
-//			hornsRight = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_RIGHT.png"));
-//			hornsCenter = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_FRONT.png"));
-//			horns = hornsLeft ; 
-//			
-//			
-//		} catch (IOException e) {}
 		this.x = x ; this.y = y;
 		this.id=id;
 

@@ -2,13 +2,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
@@ -62,16 +60,16 @@ public class PlayerInfo extends JPanel {
 		g.fillRect(0, 0, 600, 150);
 		
 		g.drawImage(infoPlayer1, 0,	0	,null);
-		System.out.println("Printed infoPlayer1 :D");
 		g.drawImage(infoPlayer2, 300, 0, null);
 
-		
+		// drawing entity names
 		g.setColor(Color.WHITE);
 		if(e1Name!=null || e2Name!=null){
 			g.drawString(e1Name, 110, 25);
 			g.drawString(e2Name, 410, 25);
 		}
 		
+		// drawing entity health
 		if(e1!=null && e2!=null){
 		g.setColor(Color.WHITE);
 		g.drawString(e1.getHealth()+" / "+e1.maxHealth, 110, 50);

@@ -5,9 +5,6 @@ import java.util.TimerTask;
 public class InputHandler {
 	Entity myEntity;
 	Animation A;
-	int  shootUpButtonIndex, shootDownButtonIndex,
-			shootRightButtonIndex, shootLeftButtonIndex;
-	long sysTime, tempTime;
 	Projectile temp;
 
 	public InputHandler(Entity myEntity, Animation A ) {
@@ -20,13 +17,17 @@ public class InputHandler {
 	public void doRun() {	
 		int tempSpeed = myEntity.getSpeed();
 		int tempFireRate = myEntity.getFireRate();
+		
+		
+		// ADDITIONAL CODE FOR THE BOT KILLER BUFF
+		// Decreasing fire rate depending on bot kills 
 		if(myEntity.buffs.contains(InformationExpert.BUFF_BOT_KILLER)){
-			myEntity.setFireRate(myEntity.getFireRate()-Math.min(myEntity.botkillCount*33,200));
-			
+			myEntity.setFireRate(myEntity.getFireRate()-Math.min(myEntity.botkillCount*33,200));	
 		}
-		if(myEntity.getId()==1){
-			System.out.println(myEntity.getFireRate());
-		}
+		
+		
+		// ADDITIONAL CODE FOR THE BERZERKER BUFF
+		// Increasing speed and decreasing fire rate if the entity hit someone in the last second 
 		if(myEntity.hit){
 			if(myEntity.buffs.contains(InformationExpert.BUFF_BERZERKER)){
 				myEntity.setSpeed(myEntity.getSpeed()+1);
@@ -70,9 +71,6 @@ public class InputHandler {
 		myEntity.setX(	Math.max(Math.min(550, myEntity.getX()), 0	)   );
 		if (A.onTileType(myEntity, 'X') || A.onTileType(myEntity, 'x') ) {
 			myEntity.setX(myEntity.getInitialX());
-//			if(myEntity.getId()==3){
-//				myEntity.randomizeTrajectory();
-//			}
 		}
 	
 		
@@ -82,9 +80,6 @@ public class InputHandler {
 		myEntity.setY(	Math.max(Math.min(550, myEntity.getY()), 0	)	);
 		if (A.onTileType(myEntity, 'X') || A.onTileType(myEntity, 'x') ) {
 			myEntity.setY(myEntity.getInitialY());
-//			if(myEntity.getId()==3){
-//				myEntity.randomizeTrajectory();
-//			}
 		}
 	
 	}

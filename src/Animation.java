@@ -20,8 +20,8 @@ public class Animation extends JPanel {
 
 
 	public InputHandler player1,player2;
-	public static BufferedImage  tile, cherry, wall,wallExtended,crown,botSpawn;
-	public static BufferedImage  goldenCherry ,bg ;
+	public static BufferedImage  tile, wall,wallExtended,crown;
+	public static BufferedImage  bg ;
 
 	public char[][] tiles;
 	public static char[][] temporaryTiles;
@@ -31,7 +31,7 @@ public class Animation extends JPanel {
 
 	public Random rand ;
 	public static TileMap map;
-	public static EventHandler eventHandler;
+//	public static EventHandler eventHandler;
 	ArrayList<Entity> 	botList = new ArrayList<>();
 	public Entity firstPlayer, secondPlayer;
 	public MapChooser myMaps;
@@ -43,7 +43,7 @@ public class Animation extends JPanel {
 		setVisible(true);
 		
 		rand = new Random();                  
-		eventHandler = new EventHandler();
+//		eventHandler = new EventHandler();
 		getPictures();
 		firstPlayer = new Entity(0, 0, 1);
 		secondPlayer = new Entity(0,0,  2);
@@ -229,13 +229,6 @@ public class Animation extends JPanel {
 			g.drawImage(crown, secondPlayer.getX(), secondPlayer.getY()-30, null);
 		}
 		
-		for(int i=0; i < tiles.length;i++){
-			for(int j=0;j< tiles.length;j++){
-//				if(tiles[i][j]=='B'){
-//					g.drawImage(botSpawn, i*50-25, j*50-25, null);
-//				}
-			}
-		}
 		
 		EventHandler.handleBulletEntitycollision(firstPlayer, secondPlayer);
 		EventHandler.handleBulletEntitycollision(secondPlayer, firstPlayer) ;
@@ -268,13 +261,10 @@ public class Animation extends JPanel {
 	public void getPictures() {
 		try {
 		
-		goldenCherry = ImageIO.read(new File("res\\goldenCherry.png"));
 		bg = ImageIO.read(new File("res\\bg.jpg"));
-		cherry = ImageIO.read(new File("res\\cherry.png"));
 		wall = ImageIO.read(new File("res\\Wall.png"));
 		wallExtended = ImageIO.read(new File("res\\WallExtended.png"));
 		crown = ImageIO.read(new File("res\\crown.png"));
-		botSpawn = ImageIO.read(new File("res\\BOT_SPAWNER.png"));
 		} catch (IOException e) {}
 	}
 

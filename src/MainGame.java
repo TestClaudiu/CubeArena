@@ -48,7 +48,7 @@ public class MainGame extends JFrame {
 		new JFrame("My game frame");
 		setLayout(new FlowLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setName(" Cube Arena Alpha v.30");
+		setName(" Cube Arena Alpha v.31");
 		
 		// The panel in which the actual game is played
 		gamePanel = new JPanel(new BorderLayout());
@@ -69,14 +69,14 @@ public class MainGame extends JFrame {
 
 			public void keyTyped(KeyEvent e) {
 			}
-
+			// react to pressed keys
 			public void keyPressed(KeyEvent e) {
 				
-				
-				
 				keyCode = e.getKeyCode();	
-				if(state==InformationExpert.STATE_BUFFS){ // WE ARE IN THE BUFFS STATE
+				 // WE ARE IN THE BUFFS STATE
+				if(state==InformationExpert.STATE_BUFFS){
 
+					// PRESSING THE ENTER BUTTON USUALLY 
 					if(keyCode == InformationExpert.KEY_ENTER){
 						if(initPanel.buffIndexesP1.size()==3 && initPanel.buffIndexesP2.size()==3){
 							state = InformationExpert.STATE_GAME;
@@ -245,12 +245,13 @@ public class MainGame extends JFrame {
 					A.secondPlayer.reset();
 					A.botList.clear();
 
-					
+					// First player is dead
 					if (A.firstPlayer.getHealth() <= 0) {
 						JOptionPane.showMessageDialog(null, "Player 2 Won !");
 						A.secondPlayer.setRoundsWon(A.secondPlayer.getRoundsWon()+1);
 					}
 					
+					// second player is dead
 					if (A.secondPlayer.getHealth() <= 0) {
 						JOptionPane.showMessageDialog(null, "Player 1 Won !");
 						A.firstPlayer.setRoundsWon(A.firstPlayer.getRoundsWon()+1);

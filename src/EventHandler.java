@@ -14,7 +14,7 @@ import javax.jws.Oneway;
 import javax.swing.ImageIcon;
 
 public class EventHandler {
-	private static BufferedImage  goldenCherry,  cherry ,bullet1,bullet2 ;
+	private static BufferedImage  goldenCherry,  cherry ;
 	int checkImages;
 
 	public EventHandler() {
@@ -151,11 +151,8 @@ public class EventHandler {
 	public void getPictures() {
 		try {
 			cherry = ImageIO.read(new File("res\\cherry.png"));
-		
-		goldenCherry = ImageIO.read(new File("res\\goldenCherry.png"));
-		bullet1 = ImageIO.read(new File("res\\ProjectileHero1.png"));
-		bullet2 = ImageIO.read(new File("res\\ProjectileHero2.png"));
-		
+			goldenCherry = ImageIO.read(new File("res\\goldenCherry.png"));
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -182,48 +179,6 @@ public class EventHandler {
 		}
 		return test;
 	}
-	public static void handleSameTrajectoryKeysEvent( int firstKey, int secondKey , int trajectoryAxis,int keyCode,Set<Integer> mySet){
-		System.out.println(trajectoryAxis+"and the keyCode is "+keyCode+" , the first key is "+firstKey+" , the second key is "+secondKey+", the set is"+mySet);
-		if((keyCode== firstKey &&  !mySet.contains(secondKey)) || (keyCode== secondKey  && !mySet.contains(firstKey))){ // if you pressed 2 buttons ( left- right or A- D) and you released one
-			trajectoryAxis=0;
-		}else if( keyCode== firstKey && mySet.contains(secondKey)){
-			trajectoryAxis=1;
-		}else if( keyCode== secondKey  && mySet.contains(firstKey)){
-			trajectoryAxis=-1;
-		}
-		System.out.println(trajectoryAxis);
-	}
-	public static void handleBuffSelectionEvent(StartPanel initPanel, int goUpKey , int goDownKey , int selectedController ,int pressedKey){
-			int myButton = 0 ;
-			int P1 = initPanel.selectedButtonP1 , P2 = initPanel.selectedButtonP2 ;
-			switch (selectedController) {
-				case 1: myButton = initPanel.selectedButtonP1;	break;
-				case 2: myButton = initPanel.selectedButtonP2; 	break;
-			}
-			
-			if(pressedKey == goUpKey)
-			{
-				if(myButton==1){	myButton=5;
-					}else{
-						myButton--;
-					}
-//					initPanel.repaint();
-				System.out.println(myButton+" , pressed up !");
-			}
-			if(pressedKey == goDownKey) 
-			{
-				if(myButton==5){	myButton= 1;
-				}else{
-					myButton++;
-				}
-				System.out.println(myButton+" , pressed down !");
-			}
-			switch (myButton) {
-			case 1: P1 = myButton ; 	break;
-			case 2: P2 = myButton	 ; break;
-		}
-			initPanel.updateSelectedButtons(P1, P2);
-			initPanel.repaint();
-				
-	}
+
+
 }

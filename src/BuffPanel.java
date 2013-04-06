@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 
-public class StartPanel extends JPanel{
+public class BuffPanel extends JPanel{
 	public int selectedButtonP1 , selectedButtonP2 ; // the cursor for the currently selected buff
 	public Set<Integer> buffIndexesP1 = new HashSet<>(); //
 	public  Set<Buff> P1buffs = new HashSet<>();
@@ -35,7 +35,7 @@ public class StartPanel extends JPanel{
 	initBG; // background
 	public boolean notEnoughBuffs = false;
 	
-	public StartPanel(){
+	public BuffPanel(){
 		
 		selectedButtonP1 = 1;
 		selectedButtonP2 = 1;
@@ -99,39 +99,41 @@ public class StartPanel extends JPanel{
 	}
 	public void handleButtons(int keyCode,Entity p1 , Entity p2){
 		System.out.println(keyCode);
-		switch(keyCode){
-	
-		// PLAYER 1
-		case InformationExpert.KEY_P1_GO_UP: // pressed UP
-			{	if(this.selectedButtonP1==1)	{	this.selectedButtonP1 = InformationExpert.NUM_OF_BUFFS;	}else{
-				this.selectedButtonP1--;
-				}
-			}break;
-		case InformationExpert.KEY_P1_GO_DOWN : // pressed DOWN
-			{	 	if(this.selectedButtonP1== InformationExpert.NUM_OF_BUFFS)	{	this.selectedButtonP1=1;	}else{
-				this.selectedButtonP1 ++;	
-				}
-			}break;
-		// PLAYER 2
-		case InformationExpert.KEY_P2_GO_UP: // pressed UP
-			{	if(this.selectedButtonP2==1)	{	this.selectedButtonP2 = InformationExpert.NUM_OF_BUFFS;	}else{
-					this.selectedButtonP2--;
+		if(keyCode == InformationExpert.KEY_P1_GO_UP){
+			
+			if(this.selectedButtonP1==1)	{	
+				this.selectedButtonP1 = InformationExpert.NUM_OF_BUFFS;	}
+			else{this.selectedButtonP1--;}	
+		}
+		if(keyCode == InformationExpert.KEY_P1_GO_DOWN){
+			if(this.selectedButtonP1== InformationExpert.NUM_OF_BUFFS)	{	
+				this.selectedButtonP1=1;	}
+			else{this.selectedButtonP1 ++;	}
+		}
+		
+		
+		
+if(keyCode == InformationExpert.KEY_P2_GO_UP){
+			
+			if(this.selectedButtonP2==1)	{	
+				this.selectedButtonP2 = InformationExpert.NUM_OF_BUFFS;	}
+			
+			else{
+				this.selectedButtonP2--;
 			}
-			}break;
-		case InformationExpert.KEY_P2_GO_DOWN : // pressed DOWN
-			{	 	if(this.selectedButtonP2==InformationExpert.NUM_OF_BUFFS)	{	this.selectedButtonP2=1;	}else{
+			
+		}
+		if(keyCode == InformationExpert.KEY_P2_GO_DOWN){
+			if(this.selectedButtonP2== InformationExpert.NUM_OF_BUFFS)	{	
+				this.selectedButtonP2=1;	}
+			
+			else{
 				this.selectedButtonP2 ++;	
-			}
-			}break;	
-			
-			
-			// Select/ deselect buffs assignment
-			
-			
-			// First player
-		case InformationExpert.KEY_P1_GO_RIGHT:
-		case InformationExpert.KEY_P1_GO_LEFT:
-		{
+				}
+		}
+		
+		if(keyCode == InformationExpert.KEY_P1_GO_LEFT || keyCode == InformationExpert.KEY_P1_GO_RIGHT){
+
 			if(buffIndexesP1.size()<3 && !buffIndexesP1.contains(this.selectedButtonP1)){ // we don't have the buff added yet and we don't have 3 buffs already
 				
 				buffIndexesP1.add(this.selectedButtonP1); 
@@ -144,18 +146,15 @@ public class StartPanel extends JPanel{
 				buffDescriptionsP1="";
 				P1buffs.clear();
 				for(int x : buffIndexesP1){ 
-					// we remake the buff description and the buff list
+					// we re make the buff description and the buff list
 					P1buffs.add(new Buff(x));
 					buffDescriptionsP1+= new Buff(x).description+"\n\n";
 					
 				}
-		} break;
 		
-		
-			// second player
-		case InformationExpert.KEY_P2_GO_LEFT:
-		case InformationExpert.KEY_P2_GO_RIGHT:
-		{
+		}
+		if(keyCode == InformationExpert.KEY_P2_GO_LEFT || keyCode == InformationExpert.KEY_P2_GO_RIGHT){
+
 			
 			if(buffIndexesP2.size()<3 && !buffIndexesP2.contains(this.selectedButtonP2)){// we don't have the buff added yet and we don't have 3 buffs already
 				
@@ -174,9 +173,8 @@ public class StartPanel extends JPanel{
 					P2buffs.add(new Buff(x)); 
 					buffDescriptionsP2+= new Buff(x).description+"\n\n";	
 				}
-		} break;
-
-	}
+		
+		}
 		
 		
 	}

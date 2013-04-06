@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 
 public class Buff {
 	public int speed = 0,fireRate = 0,damage = 0,health = 0,projectileSpeed = 0 , myIndex;
+	public int counter = 0;
 	public String description , name ,special;
 	public BufferedImage myImage1 , myImage2, myImage3 , tempImage;
 	public Buff(int index){
@@ -82,6 +83,7 @@ public class Buff {
 			name = "BOT KILLER";
 			fireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE / 4;
 			special = "+STATS WHEN IT\nKILLS BOTS";
+			myImage1 = ImageIO.read(new File("res\\buff\\BOT KILLER\\1.png"));
 			
 		}
 		name ="$"+ name;  // $ is used to identify the name and to place a buffFrame accordingly
@@ -120,6 +122,31 @@ public class Buff {
 	}	
 	public void drawBuff(Graphics g , int x , int y, int trajectoryX, int trajectoryY , boolean beforeEntity , boolean gotHit,boolean hit){
 		
+		
+		if(myIndex == InformationExpert.BUFF_BOT_KILLER){
+			System.out.println(counter);
+			if(counter>0){
+				g.drawImage(myImage1, x-15, y, null); // 1
+				
+				if(counter>1){
+					g.drawImage(myImage1, x+45 ,y, null); //2
+				
+					if(counter>2){
+						g.drawImage(myImage1, x-5, y- 15, null); //3
+						
+						if(counter>3){
+							g.drawImage(myImage1, x+35, y-15, null);//4
+							
+							if(counter>4){
+								g.drawImage(myImage1, x+15, y- 25, null); //5
+
+							}
+						}
+					}
+				}
+			}
+			
+		}
 		if(myIndex == InformationExpert.BUFF_BLOOD_SEEKER){
 			if(beforeEntity){
 				int xTempLocation = 0  , yTempLocation ;
@@ -210,6 +237,7 @@ public class Buff {
 				}
 			}
 		}
+	
 		
 	}
 	public void applyBuff(Entity e){

@@ -100,8 +100,6 @@ public class Entity {
 			setFireRate(getFireRate()+ Buffs.get(i).fireRate);
 			setSpeed(getSpeed() + Buffs.get(i).speed);
 			projectileSpeedModifier+=Buffs.get(i).projectileSpeed;
-//			System.out.println("\n" +Buffs.get(i).speed);
-//			System.out.println("DAMAGE :"+damage+"     HEALTH :"+health+"     SPEED"+speed+"     FIRE RATE"+fireRate+"     PROJECTILE SPEED"+projectileSpeedModifier);
 		}
 		
 		

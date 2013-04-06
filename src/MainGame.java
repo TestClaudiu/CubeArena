@@ -26,7 +26,7 @@ public class MainGame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static EventHandler events = new EventHandler();
 	public	static Animation A = new Animation();
-	public static StartPanel initPanel = new StartPanel();
+	public static BuffPanel BuffPanel = new BuffPanel();
 	public static PlayerInfo Info = new PlayerInfo();
 	static Set<Integer> mySet = new HashSet<Integer>() ;
 	
@@ -62,7 +62,7 @@ public class MainGame extends JFrame {
 		
 		state = 1; prevState = 0 ;
 		add(gamePanel);
-		add(initPanel);
+		add(BuffPanel);
 		pack();
 		
 		addKeyListener(new KeyListener() {
@@ -78,22 +78,22 @@ public class MainGame extends JFrame {
 
 					// PRESSING THE ENTER BUTTON USUALLY 
 					if(keyCode == InformationExpert.KEY_ENTER){
-						if(initPanel.buffIndexesP1.size()==3 && initPanel.buffIndexesP2.size()==3){
+						if(BuffPanel.buffIndexesP1.size()==3 && BuffPanel.buffIndexesP2.size()==3){
 							state = InformationExpert.STATE_GAME;
 							A.firstPlayer.Buffs.clear() ; A.secondPlayer.Buffs.clear();
 							A.firstPlayer.buffs.clear(); A.secondPlayer.buffs.clear();
 							
-							initPanel.updateEntityBuffs(A.firstPlayer);
+							BuffPanel.updateEntityBuffs(A.firstPlayer);
 							A.firstPlayer.applyBuffs();
-							initPanel.updateEntityBuffs(A.secondPlayer);
+							BuffPanel.updateEntityBuffs(A.secondPlayer);
 							A.secondPlayer.applyBuffs();
 							
 						}else{
-							initPanel.notEnoughBuffs= true;
+							BuffPanel.notEnoughBuffs= true;
 						}
 					}
-					initPanel.handleButtons(keyCode,A.firstPlayer,A.secondPlayer);	
-					initPanel.repaint();
+					BuffPanel.handleButtons(keyCode,A.firstPlayer,A.secondPlayer);	
+					BuffPanel.repaint();
 				}
 				
 				if(state== InformationExpert.STATE_GAME){ // if we are in a game	
@@ -113,7 +113,7 @@ public class MainGame extends JFrame {
 						A.firstPlayer.reset();
 						A.secondPlayer.reset();
 						state = 1;
-						initPanel.repaint() ;
+						BuffPanel.repaint() ;
 					}
 					mySet.add(keyCode);
 				}
@@ -183,7 +183,7 @@ public class MainGame extends JFrame {
 		
 		
 	}
-	public void updateTrajectory(Trajectory myTrajectory , final int LEFT , int UP , int RIGHT , int DOWN , String typeOfKeyEvent){
+	public void updateTrajectory(Trajectory myTrajectory , int LEFT , int UP , int RIGHT , int DOWN , String typeOfKeyEvent){
 			if(typeOfKeyEvent.equals("Pressed")){
 				if(keyCode == LEFT ) { 	 A.firstPlayer.updateTrajectory(myTrajectory,'-', '0') ;  }
 				if(keyCode == UP ) {	A.firstPlayer.updateTrajectory(myTrajectory,'0', '-') ; }
@@ -204,12 +204,12 @@ public class MainGame extends JFrame {
 			
 			if(state != prevState){
 				if(state == 1){
-					initPanel.setVisible(true);
+					BuffPanel.setVisible(true);
 					gamePanel.setVisible(false);
 					A.isRunning = false;
 				}
 				if(state == 2){
-					initPanel.setVisible(false);
+					BuffPanel.setVisible(false);
 					gamePanel.setVisible(true);
 					A.isRunning= true;
 				}

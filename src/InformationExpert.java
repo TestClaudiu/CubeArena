@@ -4,14 +4,14 @@ import java.util.List;
 
 
 public class InformationExpert {
-	public final static int  // KEYBOARD KEYS , used in the key listener of MainGame
+	public static int  // KEYBOARD KEYS , used in the key listener of MainGame
 		KEY_P1_GO_DOWN =  40,KEY_P1_GO_UP =  38,KEY_P1_GO_LEFT = 37,KEY_P1_GO_RIGHT = 39,
 		KEY_P1_SHOOT_DOWN = 75,KEY_P1_SHOOT_UP = 73 ,KEY_P1_SHOOT_LEFT = 74,KEY_P1_SHOOT_RIGHT = 76 ,
 		KEY_P2_GO_DOWN = 83,KEY_P2_GO_UP = 87 ,KEY_P2_GO_LEFT = 65 ,KEY_P2_GO_RIGHT = 68 ,
 		KEY_P2_SHOOT_DOWN = 66,KEY_P2_SHOOT_UP = 71 ,KEY_P2_SHOOT_LEFT = 86 ,KEY_P2_SHOOT_RIGHT = 78 ,
-		KEY_ENTER = 10 ,
+		KEY_ENTER = 10 ;
 		
-		
+	public final static int
 		// DEFAULT PLAYER VARIABLES , used in the constructor of Entity 
 		PLAYER_DEFAULT_HEALTH = 20, PLAYER_DEFAULT_DAMAGE = 2, PLAYER_DEFAULT_SPEED = 3, PLAYER_DEFAULT_FIRE_RATE = 400	,THREAD_HIT_WAIT_TIME = 1000,
 		BOT_DEFAULT_HEALTH = 10, BOT_DEFAULT_DAMAGE = 2, BOT_DEFAULT_SPEED = 2, BOT_DEFAULT_FIRE_RATE = 600 , BOT_HEALTHBAR_HEIGHT = 5 , BOT_HEALTHBAR_WIDTH = 30;

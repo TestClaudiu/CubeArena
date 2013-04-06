@@ -139,12 +139,24 @@ public class EventHandler {
 						shooted.gotHit = false;
 				}		
 				
+				
 				if (shooted.getHealth() < 0) {
 					shooted.setHealth(0);
 					if(shooted.getId()==3){ // dead enemy is a bot
 						shooter.botkillCount++;
+						for(int j=0;j<shooter.Buffs.size();j++){
+							if(shooter.Buffs.get(j).myIndex==InformationExpert.BUFF_BOT_KILLER){
+								shooter.Buffs.get(j).counter++;
+							}
+						}
 					}
 				}
+				
+				
+				
+				
+				
+				
 			}
 		}
 	}

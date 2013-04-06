@@ -85,6 +85,7 @@ public class MainGame extends JFrame {
 							
 							BuffPanel.updateEntityBuffs(A.firstPlayer);
 							A.firstPlayer.applyBuffs();
+							
 							BuffPanel.updateEntityBuffs(A.secondPlayer);
 							A.secondPlayer.applyBuffs();
 							
@@ -274,6 +275,14 @@ public class MainGame extends JFrame {
 						A.secondPlayer.setHealth(InformationExpert.PLAYER_DEFAULT_HEALTH);
 						A.firstPlayer.applyBuffs();
 						A.secondPlayer.applyBuffs();
+						for(int i=0;i<A.firstPlayer.Buffs.size();i++){
+							if(A.firstPlayer.Buffs.get(i).myIndex == InformationExpert.BUFF_BOT_KILLER){
+								A.firstPlayer.Buffs.get(i).counter = 0;
+							}
+							if(A.secondPlayer.Buffs.get(i).myIndex == InformationExpert.BUFF_BOT_KILLER){
+								A.secondPlayer.Buffs.get(i).counter = 0;
+							}
+						}
 					} else {
 						JOptionPane
 								.showMessageDialog(null,

@@ -266,7 +266,9 @@ public class Entity {
 	public int getFireRate() {
 		return fireRate;
 	}
-
+	public void setRelativeHealth(int x){
+		this.health = Math.min(Math.max(0, health+x),maxHealth);
+	}
 
 	public void setFireRate(int fireRate) {
 		this.fireRate = fireRate;

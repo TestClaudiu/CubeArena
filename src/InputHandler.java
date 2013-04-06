@@ -21,9 +21,9 @@ public class InputHandler {
 		
 		// ADDITIONAL CODE FOR THE BOT KILLER BUFF
 		// Decreasing fire rate depending on bot kills 
-		if(myEntity.buffs.contains(InformationExpert.BUFF_BOT_KILLER)){
-			myEntity.setFireRate(myEntity.getFireRate()-Math.min(myEntity.botkillCount*33,200));	
-		}
+//		if(myEntity.buffs.contains(InformationExpert.BUFF_BOT_KILLER)){
+//			myEntity.setFireRate(myEntity.getFireRate()-Math.min(myEntity.botkillCount*45,225));	
+//		}
 		
 		
 		// ADDITIONAL CODE FOR THE BERZERKER BUFF

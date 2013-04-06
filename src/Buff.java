@@ -22,9 +22,9 @@ public class Buff {
 			name = "BLOOD SEEKER";
 			damage = 1;
 			health = - InformationExpert.PLAYER_DEFAULT_HEALTH / 3;
-			myImage1 = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_LEFT.png"));
-			myImage2 = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_RIGHT.png"));
-			myImage3 = ImageIO.read(new File("res\\BUFF_BLOOD_SEEKER_FRONT.png"));
+			myImage1 = ImageIO.read(new File("res\\BUFF\\BLOOD SEEKER\\ENTITY_LEFT.png"));
+			myImage2 = ImageIO.read(new File("res\\BUFF\\BLOOD SEEKER\\ENTITY_RIGHT.png"));
+			myImage3 = ImageIO.read(new File("res\\BUFF\\BLOOD SEEKER\\ENTITY_FRONT.png"));
 			tempImage = myImage3;
 		}
 		
@@ -32,15 +32,15 @@ public class Buff {
 			name = "GUARDIAN ANGEL";
 			fireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE / 4;
 			special = "+SHIELD" ;
-			myImage1 = ImageIO.read(new File("res\\BUFF_GUARDIAN_ANGEL.png"));
-			myImage2 = ImageIO.read(new File("res\\BUFF_GUARDIAN_ANGEL_SHIELD.png"));
+			myImage1 = ImageIO.read(new File("res\\BUFF\\GUARDIAN ANGEL\\ENTITY.png"));
+			myImage2 = ImageIO.read(new File("res\\BUFF\\GUARDIAN ANGEL\\SHIELD.png"));
 		}
 		
 		if(index == InformationExpert.BUFF_TANK){
 			name = "TANK";
 			health = InformationExpert.PLAYER_DEFAULT_HEALTH * 1 /3 ; // 28.03
 			projectileSpeed = - 1;
-			myImage1 = ImageIO.read(new File("res\\BUFF_TANK.PNG"));
+			myImage1 = ImageIO.read(new File("res\\BUFF\\TANK\\ENTITY.PNG"));
 		}
 		
 		
@@ -49,41 +49,41 @@ public class Buff {
 			fireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE;
 			projectileSpeed = 2 ;
 			damage = 1;
-			myImage1 = ImageIO.read(new File("res\\BUFF_SHARP_SHOOTER.png"));
+			myImage1 = ImageIO.read(new File("res\\BUFF\\SHARPSHOOTER\\ENTITY.png"));
 		}
 
 		if(index == InformationExpert.BUFF_AVENGER){
 			speed = -1;
 			name = "AVENGER";
 			special = "+LIFESTEAL" ;
-			myImage1 = ImageIO.read(new File("res\\BUFF_AVENGER.png"));
+			myImage1 = ImageIO.read(new File("res\\BUFF\\AVENGER\\ENTITY.png"));
 		}
 		
 		if(index == InformationExpert.BUFF_SPEEDSTER){
 			name = "SPEEDSTER";
 			speed = 2;
 			projectileSpeed = - 2;
-			myImage1 = ImageIO.read(new File("res\\BUFF_SPEEDSTER.png"));
+			myImage1 = ImageIO.read(new File("res\\BUFF\\SPEEDSTER\\ENTITY.png"));
 		}
 		
 		if(index == InformationExpert.BUFF_REPEATER){
 			name = "REPEATER";
 			damage = -1;
 			fireRate = - InformationExpert.PLAYER_DEFAULT_FIRE_RATE / 2;
-			myImage1 = ImageIO.read(new File("res\\BUFF_REPEATER.png"));
+			myImage1 = ImageIO.read(new File("res\\BUFF\\REPEATER\\ENTITY.png"));
 		}
 		if(index == InformationExpert.BUFF_BERZERKER){
 			name = "BERZERKER";
 			health = - InformationExpert.PLAYER_DEFAULT_HEALTH /3;
 			special = "+STATS WHEN HITS";
-			myImage1 = ImageIO.read(new File("res\\BUFF_BERZERKER.png"));
-			myImage2 = ImageIO.read(new File("res\\BUFF_BERZERKER_RING.png"));
+			myImage1 = ImageIO.read(new File("res\\BUFF\\BERZERKER\\ENTITY.png"));
+			myImage2 = ImageIO.read(new File("res\\BUFF\\BERZERKER\\RING.png"));
 		}
 		if(index == InformationExpert.BUFF_BOT_KILLER){
 			name = "BOT KILLER";
-			fireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE / 4;
-			special = "+STATS WHEN IT\nKILLS BOTS";
-			myImage1 = ImageIO.read(new File("res\\buff\\BOT KILLER\\1.png"));
+			fireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE / 4 + 50;
+			special = "+2 HEALTH WHEN \nIT KILLS BOTS";
+			myImage1 = ImageIO.read(new File("res\\BUFF\\BOT KILLER\\ENTITY.png"));
 			
 		}
 		name ="$"+ name;  // $ is used to identify the name and to place a buffFrame accordingly
@@ -123,30 +123,7 @@ public class Buff {
 	public void drawBuff(Graphics g , int x , int y, int trajectoryX, int trajectoryY , boolean beforeEntity , boolean gotHit,boolean hit){
 		
 		
-		if(myIndex == InformationExpert.BUFF_BOT_KILLER){
-			System.out.println(counter);
-			if(counter>0){
-				g.drawImage(myImage1, x-15, y, null); // 1
-				
-				if(counter>1){
-					g.drawImage(myImage1, x+45 ,y, null); //2
-				
-					if(counter>2){
-						g.drawImage(myImage1, x-5, y- 15, null); //3
-						
-						if(counter>3){
-							g.drawImage(myImage1, x+35, y-15, null);//4
-							
-							if(counter>4){
-								g.drawImage(myImage1, x+15, y- 25, null); //5
-
-							}
-						}
-					}
-				}
-			}
-			
-		}
+		
 		if(myIndex == InformationExpert.BUFF_BLOOD_SEEKER){
 			if(beforeEntity){
 				int xTempLocation = 0  , yTempLocation ;
@@ -236,6 +213,30 @@ public class Buff {
 					g.drawImage(myImage1,x+19,y+9,null);
 				}
 			}
+		}
+		if(myIndex == InformationExpert.BUFF_BOT_KILLER){
+//			System.out.println(counter);
+			if(counter>0){
+				g.drawImage(myImage1, x-15, y, null); // 1
+				
+				if(counter>1){
+					g.drawImage(myImage1, x+45 ,y, null); //2
+				
+					if(counter>2){
+						g.drawImage(myImage1, x-5, y- 15, null); //3
+						
+						if(counter>3){
+							g.drawImage(myImage1, x+35, y-15, null);//4
+							
+							if(counter>4){
+								g.drawImage(myImage1, x+15, y- 25, null); //5
+
+							}
+						}
+					}
+				}
+			}
+			
 		}
 	
 		

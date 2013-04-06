@@ -236,10 +236,15 @@ public class Animation extends JPanel {
 			
 			EventHandler.handleBulletEntitycollision(botList.get(i), secondPlayer);
 			EventHandler.handleBulletEntitycollision(botList.get(i), firstPlayer) ;
-			EventHandler.handleBulletEntitycollision(firstPlayer, botList.get(i));
 			EventHandler.handleBulletEntitycollision(secondPlayer, botList.get(i)) ;
 			if(botList.get(i).getHealth()==0){
 				botList.remove(i);
+				i = Math.min(0, i--);
+			}
+			EventHandler.handleBulletEntitycollision(firstPlayer, botList.get(i));
+			if(botList.get(i).getHealth()==0){
+				botList.remove(i);
+				i = Math.min(0, i--);
 			}
 		}
 		for(int i=0; i< tiles.length;i++){

@@ -113,7 +113,8 @@ public class EventHandler {
 				if(shooter.gotHit== true){ // if the person who shot got hit less than 1 second ago
 					if(shooter.buffs.contains(InformationExpert.BUFF_AVENGER)){
 						if( shooter.getDamage()>0) {
-							shooter.setHealth(Math.min(shooter.getHealth()+shooter.getDamage()-1, shooter.maxHealth));
+							shooter.setRelativeHealth(shooter.getDamage()-1);
+//							shooter.setHealth(Math.min(shooter.getHealth()+shooter.getDamage()-1, shooter.maxHealth));
 						}
 					}	
 				}
@@ -124,7 +125,8 @@ public class EventHandler {
 					shooter.hitTimer.start();
 				
 				if(shooted.gotHit == false){ // got hit more than 1 second before last hit
-					shooted.setHealth(shooted.getHealth() - shooter.getDamage());
+//					shooted.setHealth(shooted.getHealth() - shooter.getDamage());
+					shooted.setRelativeHealth(-shooter.getDamage());
 					if( !shooted.gotHitTimer.isAlive()){
 						shooted.renewGotHit();
 						try {	Thread.sleep(10);} catch (InterruptedException e) {}
@@ -134,23 +136,35 @@ public class EventHandler {
 				
 				if(shooted.gotHit == true){  // got hit less than 1 second before last hit  
 					if(!shooted.buffs.contains(InformationExpert.BUFF_GUARDIAN_ANGEL)){ // guardian angel
-						shooted.setHealth(shooted.getHealth() - shooter.getDamage());
+//						shooted.setHealth(shooted.getHealth() - shooter.getDamage());
+						shooted.setRelativeHealth(-shooter.getDamage());
 					}
 						shooted.gotHit = false;
 				}		
 				
+				System.out.println(shooter.getId()+"  "+shooted.getHealth());
 				
-				if (shooted.getHealth() < 0) {
+				if (shooted.getHealth() <= 0) {
+					System.out.println("Dead enemy");
 					shooted.setHealth(0);
 					if(shooted.getId()==3){ // dead enemy is a bot
+						System.out.println("Hit a bot :(");
 						shooter.botkillCount++;
-						for(int j=0;j<shooter.Buffs.size();j++){
+						
+					
+						for(int j=0;j<shooter.Buffs.size();j++){// used to display the gears
 							if(shooter.Buffs.get(j).myIndex==InformationExpert.BUFF_BOT_KILLER){
 								shooter.Buffs.get(j).counter++;
+							if(shooter.Buffs.get(j).counter<5){
+								shooter.setRelativeHealth(2);
+									
+							}
 							}
 						}
 					}
-				}
+					
+				}	
+								
 				
 				
 				

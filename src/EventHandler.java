@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +22,9 @@ public class EventHandler {
 		getPictures();
 	}
 
+	static{
+		getPictures();
+	}
 	public static void handleCherryEvent(Graphics g, String toHandle, int i, int j,
 			int index, char[][] TilesArray, char[][] additionalTilesArray) {
 
@@ -181,7 +185,7 @@ public class EventHandler {
 			}
 		}
 	}
-	public void getPictures() {
+	public static void getPictures() {
 		try {
 			cherry = ImageIO.read(new File("res\\cherry.png"));
 			goldenCherry = ImageIO.read(new File("res\\goldenCherry.png"));

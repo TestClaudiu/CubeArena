@@ -24,7 +24,6 @@ public class MainGame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static EventHandler events = new EventHandler();
 	public	static Animation A = new Animation();
 	public static BuffPanel BuffPanel = new BuffPanel();
 	public static PlayerInfo Info = new PlayerInfo();

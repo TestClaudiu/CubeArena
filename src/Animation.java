@@ -241,10 +241,14 @@ public class Animation extends JPanel {
 				botList.remove(i);
 				i = Math.min(0, i--);
 			}
-			EventHandler.handleBulletEntitycollision(firstPlayer, botList.get(i));
-			if(botList.get(i).getHealth()==0){
-				botList.remove(i);
-				i = Math.min(0, i--);
+			
+			// we use this to avoid exceptions in case the bot died from the 2nd player's projectile and there's only one bot on the map
+			if(!botList.isEmpty()){
+				EventHandler.handleBulletEntitycollision(firstPlayer, botList.get(i));
+				if(botList.get(i).getHealth()==0){
+					botList.remove(i);
+					i = Math.min(0, i--);
+				}
 			}
 		}
 		for(int i=0; i< tiles.length;i++){

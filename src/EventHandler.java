@@ -153,14 +153,21 @@ public class EventHandler {
 						
 					
 						for(int j=0;j<shooter.Buffs.size();j++){// used to display the gears
-							if(shooter.Buffs.get(j).myIndex==InformationExpert.BUFF_BOT_KILLER){
-								shooter.Buffs.get(j).counter++;
-							if(shooter.Buffs.get(j).counter<5){
-								shooter.setRelativeHealth(2);
-									
-							}
+							
+							if(shooter.getHealth()<shooter.maxHealth){
+								if(shooter.Buffs.get(j).myIndex==InformationExpert.BUFF_BOT_KILLER){
+									shooter.Buffs.get(j).counter++;
+									if(shooter.Buffs.get(j).counter<5){
+										shooter.setRelativeHealth(2);
+											
+									}
+								}
 							}
 						}
+						
+						
+						
+						
 					}
 					
 				}	

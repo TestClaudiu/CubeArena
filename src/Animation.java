@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -17,7 +16,6 @@ public class Animation extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -893501521741612972L;
-
 
 	public InputHandler player1,player2;
 	public static BufferedImage  tile, wall,wallExtended,crown;

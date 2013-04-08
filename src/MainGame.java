@@ -207,6 +207,66 @@ public class MainGame extends JFrame {
 					
 		
 	}
+	class testForWinTask extends TimerTask{
+		
+		public void run(){
+			if(state==2){
+				if (A.firstPlayer.getHealth() <= 0 || A.secondPlayer.getHealth() <= 0) {
+					
+					mySet.clear();
+					A.firstPlayer.reset();
+					A.secondPlayer.reset();
+					A.botList.clear();
+
+					// First player is dead
+					if (A.firstPlayer.getHealth() <= 0) {
+						JOptionPane.showMessageDialog(null, "Player 2 Won !");
+						A.secondPlayer.setRoundsWon(A.secondPlayer.getRoundsWon()+1);
+					}
+					
+					// second player is dead
+					if (A.secondPlayer.getHealth() <= 0) {
+						JOptionPane.showMessageDialog(null, "Player 1 Won !");
+						A.firstPlayer.setRoundsWon(A.firstPlayer.getRoundsWon()+1);
+					}
+					
+					
+					try {
+						Thread.sleep(50);
+					} catch (Exception ignored) {}
+					
+	
+					int answer = JOptionPane.showConfirmDialog(null,
+							"Would you like to play again ?");
+					if (answer == 0) {					
+						A.myMaps.next(); // go to next 
+						A.cherryIndex = '0';
+						mySet.clear();
+						A.firstPlayer.reset();
+						A.secondPlayer.reset();
+						A.firstPlayer.setHealth(InformationExpert.PLAYER_DEFAULT_HEALTH);
+						A.secondPlayer.setHealth(InformationExpert.PLAYER_DEFAULT_HEALTH);
+						A.firstPlayer.applyBuffs();
+						A.secondPlayer.applyBuffs();
+						for(int i=0;i<A.firstPlayer.Buffs.size();i++){
+							if(A.firstPlayer.Buffs.get(i).myIndex == InformationExpert.BUFF_BOT_KILLER){
+								A.firstPlayer.Buffs.get(i).counter = 0;
+							}
+							if(A.secondPlayer.Buffs.get(i).myIndex == InformationExpert.BUFF_BOT_KILLER){
+								A.secondPlayer.Buffs.get(i).counter = 0;
+							}
+						}
+					} else {
+						JOptionPane
+								.showMessageDialog(null,
+										"Thanks for playing . This game was made by Claudiu Bele");
+						System.exit(1);
+					}
+				}
+			}
+		}
+	
+	}
 	class updateStateTask extends TimerTask{
 		public void run(){
 			
@@ -242,64 +302,6 @@ public class MainGame extends JFrame {
 			}
 		}
 	}
-	class testForWinTask extends TimerTask{
-		
-		public void run(){
-			if(state==2){
-				if (A.firstPlayer.getHealth() <= 0 || A.secondPlayer.getHealth() <= 0) {
-					
-					mySet.clear();
-					A.firstPlayer.reset();
-					A.secondPlayer.reset();
-					A.botList.clear();
-
-					// First player is dead
-					if (A.firstPlayer.getHealth() <= 0) {
-						JOptionPane.showMessageDialog(null, "Player 2 Won !");
-						A.secondPlayer.setRoundsWon(A.secondPlayer.getRoundsWon()+1);
-					}
-					
-					// second player is dead
-					if (A.secondPlayer.getHealth() <= 0) {
-						JOptionPane.showMessageDialog(null, "Player 1 Won !");
-						A.firstPlayer.setRoundsWon(A.firstPlayer.getRoundsWon()+1);
-					}
-					
-					
-					try {
-						Thread.sleep(50);
-					} catch (Exception ignored) {}
-					
 	
-					int answer = JOptionPane.showConfirmDialog(null,
-							"Would you like to play again ?");
-					if (answer == 0) {					
-						A.myMaps.next(); // go to next 
-						A.cherryIndex = '0';
-						
-						mySet.clear();
-						A.firstPlayer.setHealth(InformationExpert.PLAYER_DEFAULT_HEALTH);
-						A.secondPlayer.setHealth(InformationExpert.PLAYER_DEFAULT_HEALTH);
-						A.firstPlayer.applyBuffs();
-						A.secondPlayer.applyBuffs();
-						for(int i=0;i<A.firstPlayer.Buffs.size();i++){
-							if(A.firstPlayer.Buffs.get(i).myIndex == InformationExpert.BUFF_BOT_KILLER){
-								A.firstPlayer.Buffs.get(i).counter = 0;
-							}
-							if(A.secondPlayer.Buffs.get(i).myIndex == InformationExpert.BUFF_BOT_KILLER){
-								A.secondPlayer.Buffs.get(i).counter = 0;
-							}
-						}
-					} else {
-						JOptionPane
-								.showMessageDialog(null,
-										"Thanks for playing . This game was made by Claudiu Bele");
-						System.exit(1);
-					}
-				}
-			}
-		}
-	
-	}
 
 }

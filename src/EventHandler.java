@@ -25,19 +25,21 @@ public class EventHandler {
 	public static void handleProjectileEvent( Entity myEntity , char[][] TilesArray){ 
 		for(int i=0;i<myEntity.Projectiles.size();i++){
 			boolean test = false;
-			if(myEntity.Projectiles.get(i).hasValidPosition() 
-					&& !onTileType(myEntity.Projectiles.get(i), 'x', TilesArray) && !onTileType(myEntity.Projectiles.get(i), 'X', TilesArray)
+			if(myEntity.Projectiles.size()-1 >= i){
+				if(myEntity.Projectiles.get(i).hasValidPosition() 
+						&& !onTileType(myEntity.Projectiles.get(i), 'x', TilesArray) && !onTileType(myEntity.Projectiles.get(i), 'X', TilesArray)
+						
+						){
+						test = true;
+						myEntity.Projectiles.get(i).update();
 					
-					){
-					test = true;
-					myEntity.Projectiles.get(i).update();
-				
+						
+					}
+				else{
+					myEntity.Projectiles.remove(i);
+					i--;
 					
 				}
-			else{
-				myEntity.Projectiles.remove(i);
-				i--;
-				
 			}
 		}
 	}
@@ -116,9 +118,9 @@ public class EventHandler {
 				
 				
 				
-				
-				shooter.Projectiles.remove(i);	
-				
+				if(!shooter.Projectiles.isEmpty()){
+					shooter.Projectiles.remove(i);	
+				}
 			}
 		}
 	}

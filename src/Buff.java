@@ -81,7 +81,7 @@ public class Buff {
 		}
 		if(index == InformationExpert.BUFF_BOT_KILLER){
 			name = "BOT KILLER";
-			fireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE / 4 + 50;
+			fireRate = InformationExpert.PLAYER_DEFAULT_FIRE_RATE * 3 / 8;
 			special = "+2 HEALTH WHEN \nIT KILLS BOTS";
 			myImage1 = ImageIO.read(new File("res\\BUFF\\BOT KILLER\\ENTITY.png"));
 			
@@ -89,7 +89,7 @@ public class Buff {
 		if( index == InformationExpert.BUFF_REFLECTER){
 			name = "REFLECTER";
 			speed = -1;
-			special = "REFLECTS SOME\n BULLETS ";
+			special = "REFLECTS SOME\nENEMY BULLETS ";
 			myImage1 = ImageIO.read(new File("res\\BUFF\\REFLECTER\\SHIELD_READY.png"));
 			myImage2 = ImageIO.read(new File("res\\BUFF\\REFLECTER\\SHIELD_NOT_READY.png"));
 		}

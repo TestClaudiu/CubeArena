@@ -16,15 +16,7 @@ public class InputHandler {
 
 	public void doRun() {	
 		int tempSpeed = myEntity.getSpeed();
-		int tempFireRate = myEntity.getFireRate();
-		
-		
-		// ADDITIONAL CODE FOR THE BOT KILLER BUFF
-		// Decreasing fire rate depending on bot kills 
-//		if(myEntity.buffs.contains(InformationExpert.BUFF_BOT_KILLER)){
-//			myEntity.setFireRate(myEntity.getFireRate()-Math.min(myEntity.botkillCount*45,225));	
-//		}
-		
+		int tempFireRate = myEntity.getFireRate();		
 		
 		// ADDITIONAL CODE FOR THE BERZERKER BUFF
 		// Increasing speed and decreasing fire rate if the entity hit someone in the last second 
@@ -44,24 +36,7 @@ public class InputHandler {
 		generateProjectiles();
 		EventHandler.handleProjectileEvent( myEntity, A.tiles);
 		
-		
-		char[] cherries = {'1','2','3'};
-		for( int i=0;i<cherries.length;i++){
-			if (A.onTileType(myEntity, cherries[i]) && A.cherryIndex != cherries[i]) {
-				myEntity.setHealth(myEntity.getHealth() + 2);
-				A.cherryIndex = cherries[i];
-			}
-			if(myEntity.getHealth()>myEntity.maxHealth){
-				myEntity.setHealth(myEntity.maxHealth);
-			}
-		}
-		if (A.onTileType(myEntity, '4') && A.cherryIndex != '4') {
-			myEntity.setFireRate(myEntity.getFireRate() - 50);
-			A.cherryIndex = '4';
-		}
-		
-		
-		
+				
 		myEntity.setSpeed(tempSpeed);
 		myEntity.setFireRate(tempFireRate);
 	}

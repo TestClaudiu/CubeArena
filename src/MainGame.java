@@ -32,6 +32,14 @@ public class MainGame extends JFrame {
 	public static JPanel gamePanel ;
 	public static int state ,prevState ,keyCode;
 	
+	static{
+		
+		A.handleInput();
+		A.handleBotGenerator();
+		A.handleBotInput();
+		A.handleBotTrajectory();
+		
+	}
 	public MainGame() {
 		
 		// registering our new fonts so we can use them
@@ -148,10 +156,10 @@ public class MainGame extends JFrame {
 	
 	public static void main(String[] args) {
 		
-		A.handleInput();
-		A.handleBotGenerator();
-		A.handleBotInput();
-		A.handleBotTrajectory();
+//		A.handleInput();
+//		A.handleBotGenerator();
+//		A.handleBotInput();
+//		A.handleBotTrajectory();
 		String fName = JOptionPane.showInputDialog(null, "Enter First player's name !");
 		A.firstPlayer.name = fName;
 		String sName = JOptionPane.showInputDialog(null, "Enter Second player's name !");

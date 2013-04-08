@@ -176,35 +176,6 @@ public class TileMap {
 		}
 		int count=0;
 		// code for the cherry
-		while (count < 4) {
-			do {
-				x = rand.nextInt(12);
-				y = rand.nextInt(12);
-			} 
-
-			while (tiles[x][y] == 'S' || tiles[x][y] == 's'
-					|| tiles[x][y] == 'R' || tiles[x][y] == 'r' 
-					|| tiles[x][y]=='X' || tiles[x][y] == 'B');
-
-			if (count == 0) {
-				tiles[x][y] = '1';
-				count++;
-			}
-			if (count == 1 && tiles[x][y] != '1') {
-				tiles[x][y] = '2';
-				count++;
-			}
-			if (count == 2 && tiles[x][y] != '1' && tiles[x][y] != '2') {
-				tiles[x][y] = '3';
-				count++;
-			}
-			if (count == 3 && tiles[x][y] != '1' && tiles[x][y] != '2'
-					&& tiles[x][y] != '3') {
-				tiles[x][y] = '4';
-				count++;
-			}
-
-		}
 
 		// code for the solid tiles
 		for (int i = 0; i < tiles.length; i++) {
@@ -215,17 +186,6 @@ public class TileMap {
 			}
 		}
 
-		// Temporary tile !
-
-		for (int i = 0; i < tiles.length; i++) {
-			for (int j = 0; j < tiles.length; j++) {
-				temporaryTiles[i][j] = tiles[i][j];
-				if (tiles[i][j] == '2' || tiles[i][j] == '3'
-						|| tiles[i][j] == '4') {
-					tiles[i][j] = '-';
-				}
-			}
-		}
 	}
 	
 	

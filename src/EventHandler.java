@@ -15,81 +15,14 @@ import javax.jws.Oneway;
 import javax.swing.ImageIcon;
 
 public class EventHandler {
-	private static BufferedImage  goldenCherry,  cherry ;
-	int checkImages;
-
-	public EventHandler() {
-		getPictures();
-	}
-
-	static{
-		getPictures();
-	}
-	public static void handleCherryEvent(Graphics g, String toHandle, int i, int j,
-			int index, char[][] TilesArray, char[][] additionalTilesArray) {
-
-		if (toHandle.equals("firstCherry")) {
-			if (TilesArray[i][j] == '1') {
-				if (index == '0') { // Cherry is visible
-					g.drawImage(cherry, i * 50, j * 50 + 0, null);
-				} else { // Cherry is not Visible
-					TilesArray[i][j] = '-'; // replace the character with a
-											// default
-					// one in the event that we go over the
-					// tile again
-				}
-			}
-		} // firstCherry Event handle
-
-		if (toHandle.equals("secondCherry")) {
-			if (additionalTilesArray[i][j] == '2') {
-				/**
-				  * * we put additionalTilesArray in here because we don't want
-				  * to compare from the TilesArray array as the TilesArray[i][j]
-				  * doesn't store the invisible cherries, as the user might go
-				  * over an invisible one and trigger the next if, bypassing the
-				  * one before.
-				  */
-				if (index == '1') { // cherry is visible
-					TilesArray[i][j] = additionalTilesArray[i][j];
-					/*
-					 * we give the TilesArray[i][j] the value of the temp array,
-					 * so event will be triggered
-					 */
-					g.drawImage(cherry, i * 50, j * 50 + 0, null);
-				} else { // Cherry not visible
-					TilesArray[i][j] = '-'; // replay the char with a default
-											// one
-				}
-			}
-
-		} // secondCherry Event handle
-
-		if (toHandle.equals("thirdCherry")) {
-
-			if (additionalTilesArray[i][j] == '3') {
-				if (index == '2') { // cherry is visible
-					TilesArray[i][j] = additionalTilesArray[i][j];
-					g.drawImage(cherry, i * 50, j * 50 + 0, null);
-				} else { // Cherry not visible
-					TilesArray[i][j] = '-'; // replay the char with a default
-											// one
-				}
-			}
-		}// thirdCherry Event handle
-
-		if (toHandle.equals("goldenCherry")) {
-			if (additionalTilesArray[i][j] == '4' && index == '3') {
-				TilesArray[i][j] = additionalTilesArray[i][j];
-				g.drawImage(goldenCherry, i * 50, j * 50 + 0, null);
-			}
-		}
-		
-		
 	
-
+	int checkImages;
+	public EventHandler() {
+		
 	}
-	public static void handleProjectileEvent( Entity myEntity , char[][] TilesArray){ // Graphics g,
+
+	
+	public static void handleProjectileEvent( Entity myEntity , char[][] TilesArray){ 
 		for(int i=0;i<myEntity.Projectiles.size();i++){
 			boolean test = false;
 			if(myEntity.Projectiles.get(i).hasValidPosition() 
@@ -118,7 +51,6 @@ public class EventHandler {
 					if(shooter.buffs.contains(InformationExpert.BUFF_AVENGER)){
 						if( shooter.getDamage()>0) {
 							shooter.setRelativeHealth(shooter.getDamage()-1);
-//							shooter.setHealth(Math.min(shooter.getHealth()+shooter.getDamage()-1, shooter.maxHealth));
 						}
 					}	
 				}
@@ -129,7 +61,6 @@ public class EventHandler {
 					shooter.hitTimer.start();
 				
 				if(shooted.gotHit == false){ // got hit more than 1 second before last hit
-//					shooted.setHealth(shooted.getHealth() - shooter.getDamage());
 					shooted.setRelativeHealth(-shooter.getDamage());
 					if( !shooted.gotHitTimer.isAlive()){
 						shooted.renewGotHit();
@@ -140,7 +71,6 @@ public class EventHandler {
 				
 				if(shooted.gotHit == true){  // got hit less than 1 second before last hit  
 					if(!shooted.buffs.contains(InformationExpert.BUFF_GUARDIAN_ANGEL)){ // guardian angel
-//						shooted.setHealth(shooted.getHealth() - shooter.getDamage());
 						shooted.setRelativeHealth(-shooter.getDamage());
 					}
 					if(shooted.buffs.contains(InformationExpert.BUFF_REFLECTER)){
@@ -149,15 +79,15 @@ public class EventHandler {
 						int tempTrajy = shooter.Projectiles.get(i).trajectory.y * -1;
 
 						shooted.Projectiles.add(new Projectile(shooted.projectileSpeedModifier+ InformationExpert.PROJECTILE_DEFAULT_SPEED,
-								new Trajectory(tempTrajx, tempTrajy), shooted.getX(), shooter.getY()	) );
+								new Trajectory(tempTrajx, tempTrajy), shooted.getX()+10*tempTrajx, shooted.getY()+10*tempTrajy	) );
 						
 					}
 						shooted.gotHit = false;
 				}		
 				
-				System.out.println(shooter.getId()+"  "+shooted.getHealth());
 				
-				if (shooted.getHealth() <= 0) { // Entity that got hit is dead
+				// Entity that got hit is dead
+				if (shooted.getHealth() <= 0) { 
 					System.out.println("Dead enemy");
 					shooted.setHealth(0);
 					if(shooted.getId()==3){ // dead enemy is a bot
@@ -191,17 +121,6 @@ public class EventHandler {
 				
 			}
 		}
-	}
-	public static void getPictures() {
-		try {
-			cherry = ImageIO.read(new File("res\\cherry.png"));
-			goldenCherry = ImageIO.read(new File("res\\goldenCherry.png"));
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 	public static boolean onTileType(Projectile e, char c,char[][] TilesArray) {
 		boolean test = false;

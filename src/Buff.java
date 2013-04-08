@@ -75,7 +75,7 @@ public class Buff {
 		if(index == InformationExpert.BUFF_BERZERKER){
 			name = "BERZERKER";
 			health = - InformationExpert.PLAYER_DEFAULT_HEALTH /3;
-			special = "+STATS WHEN HITS";
+			special = "+STATS WHEN IT \n HITS ENEMIES";
 			myImage1 = ImageIO.read(new File("res\\BUFF\\BERZERKER\\ENTITY.png"));
 			myImage2 = ImageIO.read(new File("res\\BUFF\\BERZERKER\\RING.png"));
 		}
@@ -89,6 +89,7 @@ public class Buff {
 		if( index == InformationExpert.BUFF_REFLECTER){
 			name = "REFLECTER";
 			speed = -1;
+			special = "REFLECTS SOME\n BULLETS ";
 			myImage1 = ImageIO.read(new File("res\\BUFF\\REFLECTER\\SHIELD_READY.png"));
 			myImage2 = ImageIO.read(new File("res\\BUFF\\REFLECTER\\SHIELD_NOT_READY.png"));
 		}

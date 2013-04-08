@@ -189,21 +189,6 @@ public class Animation extends JPanel {
 					
 		}		
 		
-		// Drawing the cherries
-		//TO DO 
-		for(int i=0; i< tiles.length;i++){
-			for(int j=0;j<tiles.length;j++){
-			EventHandler.handleCherryEvent(g, "firstCherry", i, j, cherryIndex,
-					tiles,null);
-			EventHandler.handleCherryEvent(g, "secondCherry", i, j, cherryIndex,
-					tiles, temporaryTiles);
-			EventHandler.handleCherryEvent(g, "thirdCherry", i, j, cherryIndex,
-					tiles, temporaryTiles);
-			EventHandler.handleCherryEvent(g, "goldenCherry", i, j, cherryIndex,
-					tiles, temporaryTiles);
-		}
-	}
-		
 		// Drawing the entities' projectiles via their drawProjectile method
 		firstPlayer.drawProjectiles(g);
 		secondPlayer.drawProjectiles(g);
@@ -229,9 +214,14 @@ public class Animation extends JPanel {
 			g.drawImage(crown, secondPlayer.getX(), secondPlayer.getY()-30, null);
 		}
 		
-		
+		// we are testing if any of our entities' projectiles hit another entity
+		// Test if firstplayer projectiles are hitting the second player
 		EventHandler.handleBulletEntitycollision(firstPlayer, secondPlayer);
+		// Test if secondplayer projectiles are hitting the first player
 		EventHandler.handleBulletEntitycollision(secondPlayer, firstPlayer) ;
+		
+		
+		// Test if one of our Bots' projectiles are hitting the first player and the 2nd player and vice versa
 		for(int i=0;i< botList.size();i++){
 			
 			EventHandler.handleBulletEntitycollision(botList.get(i), secondPlayer);
@@ -241,7 +231,6 @@ public class Animation extends JPanel {
 				botList.remove(i);
 				i = Math.min(0, i--);
 			}
-			
 			// we use this to avoid exceptions in case the bot died from the 2nd player's projectile and there's only one bot on the map
 			if(!botList.isEmpty()){
 				EventHandler.handleBulletEntitycollision(firstPlayer, botList.get(i));
@@ -251,6 +240,9 @@ public class Animation extends JPanel {
 				}
 			}
 		}
+		
+		
+		// Here we draw the wall again to give that 3d-ish kind of look
 		for(int i=0; i< tiles.length;i++){
 			for(int j=0;j<tiles.length;j++){
 				if(tiles[i][j]=='x'){
@@ -265,7 +257,7 @@ public class Animation extends JPanel {
 			}
 		}
 			
-	}
+	}// The drawPictures method is done
 
 	public void getPictures() {
 		try {

@@ -113,7 +113,7 @@ public class EventHandler {
 		for (int i = 0; i < shooter.Projectiles.size(); i++) {
 			if (onSameTileType(shooter.Projectiles.get(i), shooted)) { // shooted got hit
 				
-				shooter.Projectiles.remove(i);
+//				shooter.Projectiles.remove(i);
 				if(shooter.gotHit== true){ // if the person who shot got hit less than 1 second ago
 					if(shooter.buffs.contains(InformationExpert.BUFF_AVENGER)){
 						if( shooter.getDamage()>0) {
@@ -143,12 +143,21 @@ public class EventHandler {
 //						shooted.setHealth(shooted.getHealth() - shooter.getDamage());
 						shooted.setRelativeHealth(-shooter.getDamage());
 					}
+					if(shooted.buffs.contains(InformationExpert.BUFF_REFLECTER)){
+						System.out.println("Entered Reflecter trigger");
+						int tempTrajx = shooter.Projectiles.get(i).trajectory.x * -1;
+						int tempTrajy = shooter.Projectiles.get(i).trajectory.y * -1;
+
+						shooted.Projectiles.add(new Projectile(shooted.projectileSpeedModifier+ InformationExpert.PROJECTILE_DEFAULT_SPEED,
+								new Trajectory(tempTrajx, tempTrajy), shooted.getX(), shooter.getY()	) );
+						
+					}
 						shooted.gotHit = false;
 				}		
 				
 				System.out.println(shooter.getId()+"  "+shooted.getHealth());
 				
-				if (shooted.getHealth() <= 0) {
+				if (shooted.getHealth() <= 0) { // Entity that got hit is dead
 					System.out.println("Dead enemy");
 					shooted.setHealth(0);
 					if(shooted.getId()==3){ // dead enemy is a bot
@@ -162,25 +171,23 @@ public class EventHandler {
 								if(shooter.Buffs.get(j).myIndex==InformationExpert.BUFF_BOT_KILLER){
 									shooter.Buffs.get(j).counter++;
 									if(shooter.Buffs.get(j).counter<5){
+										// increases shooter's health by 2 if he has less than 5 charges used
 										shooter.setRelativeHealth(2);
 											
-									}
+									}  
 								}
 							}
-						}
+						} // finished displaying BOT KILLER's gears
 						
-						
-						
-						
-					}
+					}// the dead enemy is a bot
 					
-				}	
+				}// finish of dead enemy code
 								
 				
 				
 				
 				
-				
+				shooter.Projectiles.remove(i);	
 				
 			}
 		}

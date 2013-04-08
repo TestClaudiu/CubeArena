@@ -86,6 +86,12 @@ public class Buff {
 			myImage1 = ImageIO.read(new File("res\\BUFF\\BOT KILLER\\ENTITY.png"));
 			
 		}
+		if( index == InformationExpert.BUFF_REFLECTER){
+			name = "REFLECTER";
+			speed = -1;
+			myImage1 = ImageIO.read(new File("res\\BUFF\\REFLECTER\\SHIELD_READY.png"));
+			myImage2 = ImageIO.read(new File("res\\BUFF\\REFLECTER\\SHIELD_NOT_READY.png"));
+		}
 		name ="$"+ name;  // $ is used to identify the name and to place a buffFrame accordingly
 		description = name +"\n";
 		if(damage !=0){	description+=("DAMAGE "+getSign(damage)+"\n");	}
@@ -238,7 +244,16 @@ public class Buff {
 			}
 			
 		}
-	
+		if(myIndex == InformationExpert.BUFF_REFLECTER){
+			if(!beforeEntity){
+				if(gotHit){
+					g.drawImage(myImage1, x-15, y-22, null);
+					
+				}else{
+					g.drawImage(myImage2, x-15, y-22, null);
+				}
+			}
+		}
 		
 	}
 	public void applyBuff(Entity e){

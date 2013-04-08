@@ -18,12 +18,12 @@ public class InformationExpert {
 	
 	// USED IN THE StartPanel.java  ( the buff panel )
 	public final static String[] buffNames
-		= { "BLOOD SEEKER" ,"GUARDIAN ANGEL","TANK", "SHARPSHOOTER" , "AVENGER" , "SPEEDSTER" ,"REPEATER" , "BERZERKER" , "BOT KILLER"};// NAME OF BUFFS , used in StartPanel.java draw
+		= { "BLOOD SEEKER" ,"GUARDIAN ANGEL","TANK", "SHARPSHOOTER" , "AVENGER" , "SPEEDSTER" ,"REPEATER" , "BERZERKER" , "BOT KILLER" , "REFLECTER"};// NAME OF BUFFS , used in StartPanel.java draw
 	public final static List<String> BUFF_LIST =  Arrays.asList(buffNames);
 	public final static int NUM_OF_BUFFS = BUFF_LIST.size(), DISTANCE_BETWEEN_BUTTONS = 50 ,
 			BUFF_BLOOD_SEEKER = 1 , BUFF_GUARDIAN_ANGEL = 2, BUFF_TANK = 3 ,
 			BUFF_SHARPSHOOTER = 4 , BUFF_AVENGER = 5, BUFF_SPEEDSTER = 6 , BUFF_REPEATER = 7 ,
-			BUFF_BERZERKER = 8, BUFF_BOT_KILLER = 9,
+			BUFF_BERZERKER = 8, BUFF_BOT_KILLER = 9, BUFF_REFLECTER = 10,
 	
 	// FOR CHOOSING MAPS
 			MAP_RANDOM = 1,  MAP_PREMADE = 2,

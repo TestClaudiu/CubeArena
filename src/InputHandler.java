@@ -16,7 +16,8 @@ public class InputHandler {
 
 	public void doRun() {	
 		int tempSpeed = myEntity.getSpeed();
-		int tempFireRate = myEntity.getFireRate();		
+		int tempFireRate = myEntity.getFireRate();
+		
 		
 		// ADDITIONAL CODE FOR THE BERZERKER BUFF
 		// Increasing speed and decreasing fire rate if the entity hit someone in the last second 
@@ -42,16 +43,17 @@ public class InputHandler {
 	}
 	public void reactToTrajectory(){
 	
-		myEntity.setX(myEntity.getX() + myEntity.moveTrajectory.getX() * myEntity.getSpeed());
+		myEntity.setX(myEntity.getX() + myEntity.moveTrajectory.getX() * ( myEntity.getSpeed() +  myEntity.hitEnemy) );
 		myEntity.setX(	Math.max(Math.min(550, myEntity.getX()), 0	)   );
-		if (A.onTileType(myEntity, 'X') || A.onTileType(myEntity, 'x') ) {
+		
+		if (A.onTileType(myEntity, 'X') || A.onTileType(myEntity, 'x')  ) {
 			myEntity.setX(myEntity.getInitialX());
 		}
 	
 		
 		
 		
-		myEntity.setY(myEntity.getY() + myEntity.moveTrajectory.getY() * myEntity.getSpeed());
+		myEntity.setY(myEntity.getY() + myEntity.moveTrajectory.getY() * ( myEntity.getSpeed() +  myEntity.hitEnemy) );
 		myEntity.setY(	Math.max(Math.min(550, myEntity.getY()), 0	)	);
 		if (A.onTileType(myEntity, 'X') || A.onTileType(myEntity, 'x') ) {
 			myEntity.setY(myEntity.getInitialY());

@@ -85,7 +85,7 @@ public class MainGame extends JFrame {
 
 					// PRESSING THE ENTER BUTTON USUALLY 
 					if(keyCode == InformationExpert.KEY_ENTER){
-						if(BuffPanel.buffIndexesP1.size()==3 && BuffPanel.buffIndexesP2.size()==3){
+						if(BuffPanel.buffIndexesP1.size()==InformationExpert.PLAYER_BUFF_NUMBER && BuffPanel.buffIndexesP2.size()==InformationExpert.PLAYER_BUFF_NUMBER){
 							state = InformationExpert.STATE_GAME;
 							A.firstPlayer.Buffs.clear() ; A.secondPlayer.Buffs.clear();
 							A.firstPlayer.buffs.clear(); A.secondPlayer.buffs.clear();

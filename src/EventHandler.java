@@ -61,7 +61,20 @@ public class EventHandler {
 					shooter.hitTimer.interrupt(); // used for the berzerker
 					shooter.renewHit();
 					shooter.hitTimer.start();
-				
+					if(	((shooter.getId()==1 && (shooted.getId()== 2 || shooted.getId()==3 ))|| 
+						(shooter.getId()==2 && ( shooted.getId()== 1|| shooted.getId()==3 )) ) 
+						&& shooter.buffs.contains(InformationExpert.BUFF_GHOST)){
+						
+						shooter.hitEnemy = -1;
+						shooter.Projectiles.get(i).setX(shooter.Projectiles.get(i).getX() + shooter.Projectiles.get(i).trajectory.x * 25 );
+						shooter.Projectiles.get(i).setY(shooter.Projectiles.get(i).getY() + shooter.Projectiles.get(i).trajectory.y * 25 );
+
+					}
+//					if(shooter.getId()==2 && shooted.getId()== 1 && shooter.buffs.contains(InformationExpert.BUFF_GHOST)){
+//						shooter.hitEnemy = -1 ;
+//					}
+					
+					
 				if(shooted.gotHit == false){ // got hit more than 1 second before last hit
 					shooted.setRelativeHealth(-shooter.getDamage());
 					if( !shooted.gotHitTimer.isAlive()){
@@ -118,8 +131,11 @@ public class EventHandler {
 				
 				
 				
-				if(!shooter.Projectiles.isEmpty()){
-					shooter.Projectiles.remove(i);	
+				if(i < shooter.Projectiles.size()){
+					if(!shooter.buffs.contains(InformationExpert.BUFF_GHOST)){
+						shooter.Projectiles.remove(i);	
+						
+					}
 				}
 			}
 		}

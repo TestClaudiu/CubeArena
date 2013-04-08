@@ -134,7 +134,7 @@ if(keyCode == InformationExpert.KEY_P2_GO_UP){
 		
 		if(keyCode == InformationExpert.KEY_P1_GO_LEFT || keyCode == InformationExpert.KEY_P1_GO_RIGHT){
 
-			if(buffIndexesP1.size()<3 && !buffIndexesP1.contains(this.selectedButtonP1)){ // we don't have the buff added yet and we don't have 3 buffs already
+			if(buffIndexesP1.size()<InformationExpert.PLAYER_BUFF_NUMBER && !buffIndexesP1.contains(this.selectedButtonP1)){ // we don't have the buff added yet and we don't have 3 buffs already
 				buffIndexesP1.add(this.selectedButtonP1); 
 			}else if(buffIndexesP1.contains(this.selectedButtonP1)){ // we have it in our buff list
 				buffIndexesP1.remove(this.selectedButtonP1);
@@ -151,7 +151,7 @@ if(keyCode == InformationExpert.KEY_P2_GO_UP){
 		}
 		if(keyCode == InformationExpert.KEY_P2_GO_LEFT || keyCode == InformationExpert.KEY_P2_GO_RIGHT){
 
-			if(buffIndexesP2.size()<3 && !buffIndexesP2.contains(this.selectedButtonP2)){// we don't have the buff added yet and we don't have 3 buffs already
+			if(buffIndexesP2.size()<InformationExpert.PLAYER_BUFF_NUMBER && !buffIndexesP2.contains(this.selectedButtonP2)){// we don't have the buff added yet and we don't have 3 buffs already
 				buffIndexesP2.add(this.selectedButtonP2);
 			}else if(buffIndexesP2.contains(this.selectedButtonP2)){ // we have it in our buff list
 				buffIndexesP2.remove(this.selectedButtonP2);
@@ -174,7 +174,7 @@ if(keyCode == InformationExpert.KEY_P2_GO_UP){
 		if(e.getId()==2){	e.Buffs.addAll(P2buffs); e.buffs.addAll(buffIndexesP2);		}
 	}
 	public void generateBuffDescriptions(Graphics g , Color ColorName , Color ColorDesc , int posX , String desc){
-		int posY = 100;
+		int posY = 30;
 		Scanner lineProcessor = new Scanner(desc);
 	
 		while(lineProcessor.hasNextLine()){ // there are still lines to be processed from the buff descriptions

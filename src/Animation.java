@@ -199,6 +199,7 @@ public class Animation extends JPanel {
 		
 		// Drawing the entities via their drawEntity method
 		for(int i=0;i<botList.size();i++){
+			
 			botList.get(i).drawEntity(bf.getGraphics());
 		}
 		firstPlayer.drawEntity(bf.getGraphics());

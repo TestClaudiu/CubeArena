@@ -36,15 +36,16 @@ public class Entity {
 	private int clip = 0;
 	public int default_Damage , default_Speed , default_Health, default_FireRate; 
 	private int damage,speed,health,fireRate;
-	public int projectileSpeedModifier = 0;
+	public int projectileSpeedModifier = 0,  hitEnemy = 0;
 	private int x;	private int y;
-	
+
 	
 	public Thread gotHitTimer , hitTimer;
 	public boolean gotHit = false , hit = false;
+	public VariablesAtTime NecroBotVariables ;
 	
 	public Entity(int x, int y, int id){
-		
+		NecroBotVariables = new  VariablesAtTime(sysTime);
 		this.x = x ; this.y = y;
 		this.id=id;
 
@@ -66,9 +67,7 @@ public class Entity {
 		}
 		
 		this.name = "";
-//		if(this.id == 1 || this.id == 2){
-			this.MyImages = new EntityImageLibrary(this.id);
-//		}
+		this.MyImages = new EntityImageLibrary(this.id);
 		try {
 			
 		switch(id){
@@ -102,10 +101,9 @@ public class Entity {
 			projectileSpeedModifier+=Buffs.get(i).projectileSpeed;
 		}
 		
-		
 		this.maxHealth = this.health;
 	}
-	// This method is calle every time an enity is being hit and there has been more than one second since the last received hit
+	// This method is call every time an entity is being hit and there has been more than one second since the last received hit
 
 	public void drawEntity(Graphics g){
 		
@@ -214,11 +212,12 @@ public class Entity {
 				hit = true;
 				try {Thread.sleep(InformationExpert.THREAD_HIT_WAIT_TIME);
 				} catch (InterruptedException e) {}
-				hit = false;	
+				hit = false;
+				hitEnemy = 0;
 			}
 		};
 	}
-	public void reset(){
+	public void reset ( ) {
 		this.shootTrajectory.setX(0);
 		this.shootTrajectory.setY(0);
 		this.moveTrajectory.setX(0);
@@ -233,8 +232,6 @@ public class Entity {
 		int trajectory;
 		trajectory = rand.nextInt(3)-1; this.moveTrajectory.x = trajectory; this.shootTrajectory.x = trajectory;
 		trajectory = rand.nextInt(3)-1; this.moveTrajectory.y = trajectory; this.shootTrajectory.y = trajectory;
-//		trajectory = rand.nextInt(3)-1; this.shootTrajectory.x = trajectory;
-//		trajectory = rand.nextInt(3)-1; this.shootTrajectory.y = trajectory; 
 		
 	}
 	
@@ -332,6 +329,22 @@ public class Entity {
 		this.damage = damage;
 	}
 	
+	
+}
+class VariablesAtTime{
+	Trajectory move, shoot;
+	int x,y;
+	long time;
+	public VariablesAtTime( long time,int x, int y , Trajectory move,Trajectory shoot){
+		this.time = time;
+		this.x = x;
+		this.y = y;
+		this.move = move;
+		this.shoot = shoot;
+	}
+	public VariablesAtTime ( long sysTime ){
+		this.time = sysTime;
+	}
 	
 }
 class Trajectory{

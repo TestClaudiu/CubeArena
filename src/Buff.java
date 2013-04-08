@@ -93,6 +93,14 @@ public class Buff {
 			myImage1 = ImageIO.read(new File("res\\BUFF\\REFLECTER\\SHIELD_READY.png"));
 			myImage2 = ImageIO.read(new File("res\\BUFF\\REFLECTER\\SHIELD_NOT_READY.png"));
 		}
+		if( index == InformationExpert.BUFF_GHOST){
+			name = "GHOST";
+//			projectileSpeed = -2;
+//			speed = -2;
+//			damage = -2;
+			special ="GOES THROUGH \nWALLS";
+			myImage1 = ImageIO.read(new File("res\\BUFF\\GHOST\\ENTITY.png"));
+		}
 		name ="$"+ name;  // $ is used to identify the name and to place a buffFrame accordingly
 		description = name +"\n";
 		if(damage !=0){	description+=("DAMAGE "+getSign(damage)+"\n");	}
@@ -111,8 +119,8 @@ public class Buff {
 		getNumLines.close(); 
 		
 		
-		if(numLines<4){
-			int numLinesToAdd = 4 - numLines ;
+		if(numLines<5){
+			int numLinesToAdd = 5 - numLines ;
 			for(int i=0;i<numLinesToAdd;i++){
 				description+="\n";
 			}
@@ -255,6 +263,9 @@ public class Buff {
 				}
 			}
 		}
+//		if(myIndex == InformationExpert.BUFF_GHOST){
+//			g.drawImage(myImage1, x+5, y-10, null);
+//		}
 		
 	}
 	public void applyBuff(Entity e){

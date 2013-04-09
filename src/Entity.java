@@ -37,6 +37,7 @@ public class Entity {
 	public int default_Damage , default_Speed , default_Health, default_FireRate; 
 	private int damage,speed,health,fireRate;
 	public int projectileSpeedModifier = 0,  hitEnemy = 0;
+	public long serialNum ;
 	private int x;	private int y;
 
 	
@@ -83,7 +84,7 @@ public class Entity {
 		
 		renewGotHit();
 		renewHit();
-		
+		serialNum = sysTime+ this.id;
 		
 		
 		}

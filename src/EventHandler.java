@@ -47,7 +47,9 @@ public class EventHandler {
 		
 		for (int i = 0; i < shooter.Projectiles.size(); i++) {
 			if (onSameTileType(shooter.Projectiles.get(i), shooted)) { // shooted got hit
-				
+				if(!shooter.Projectiles.get(i).enemies.contains(shooter.serialNum)){
+					shooter.Projectiles.get(i).enemies.add(shooter.serialNum);
+//				}else{
 //				shooter.Projectiles.remove(i);
 				if(shooter.gotHit== true){ // if the person who shot got hit less than 1 second ago
 					if(shooter.buffs.contains(InformationExpert.BUFF_AVENGER)){
@@ -66,8 +68,8 @@ public class EventHandler {
 						&& shooter.buffs.contains(InformationExpert.BUFF_GHOST)){
 						
 						shooter.hitEnemy = -1;
-						shooter.Projectiles.get(i).setX(shooter.Projectiles.get(i).getX() + shooter.Projectiles.get(i).trajectory.x * 25 );
-						shooter.Projectiles.get(i).setY(shooter.Projectiles.get(i).getY() + shooter.Projectiles.get(i).trajectory.y * 25 );
+//						shooter.Projectiles.get(i).setX(shooter.Projectiles.get(i).getX() + shooter.Projectiles.get(i).trajectory.x * 25 );
+//						shooter.Projectiles.get(i).setY(shooter.Projectiles.get(i).getY() + shooter.Projectiles.get(i).trajectory.y * 25 );
 
 					}
 //					if(shooter.getId()==2 && shooted.getId()== 1 && shooter.buffs.contains(InformationExpert.BUFF_GHOST)){
@@ -137,6 +139,8 @@ public class EventHandler {
 						
 					}
 				}
+				
+			}
 			}
 		}
 	}

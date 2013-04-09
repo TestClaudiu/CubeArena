@@ -95,10 +95,7 @@ public class Buff {
 		}
 		if( index == InformationExpert.BUFF_GHOST){
 			name = "GHOST";
-//			projectileSpeed = -2;
-//			speed = -2;
-//			damage = -2;
-			special ="GOES THROUGH \nWALLS";
+			special ="PROJECTILES GO \nTHROUGH ENEMIES\n AND SLOW YOU";
 			myImage1 = ImageIO.read(new File("res\\BUFF\\GHOST\\ENTITY.png"));
 		}
 		name ="$"+ name;  // $ is used to identify the name and to place a buffFrame accordingly
@@ -130,9 +127,9 @@ public class Buff {
 	}
 	public String getSign(int x){
 		String temp;
-		if(x>0){
-			temp = "+"+x;
-		}else temp = "-"+Math.abs(x);
+		if(1000/x>0){
+			temp = "+"+1000/x;
+		}else temp = "-"+Math.abs(1000/x);
 		return temp;
 	}	
 	public void drawBuff(Graphics g , int x , int y, int trajectoryX, int trajectoryY , boolean beforeEntity , boolean gotHit,boolean hit){
@@ -263,9 +260,9 @@ public class Buff {
 				}
 			}
 		}
-//		if(myIndex == InformationExpert.BUFF_GHOST){
-//			g.drawImage(myImage1, x+5, y-10, null);
-//		}
+		if(myIndex == InformationExpert.BUFF_GHOST){
+			g.drawImage(myImage1, x+5, y-10, null);
+		}
 		
 	}
 	public void applyBuff(Entity e){

@@ -1,11 +1,13 @@
 import java.awt.Image;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Projectile {
 	private int speed;
 	private String direction;
 	Trajectory trajectory = new Trajectory(0, 0);
-
+	Set<Long> enemies = new HashSet<>();
 	private int y;
 	private int x;
 	private int prevX,prevY ;
